@@ -30,7 +30,7 @@ var axisY = sketch1.append("g")
 
 
 //TODO: import data, parse, and draw
-d3.csv("data/20161106-swimming-times.csv", parseData, draw1);
+d3.csv("../data/20161106-swimming-times.csv", parseData, draw1);
 
 function draw1 (err, rows) {
     //console.log(data);

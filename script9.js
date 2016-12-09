@@ -497,10 +497,15 @@ function draw1 (err, rows, types, swimmers) {
 
         var speed = d3.scaleLinear().domain(speedExtent).range([1000,5000]),
             scaleRMiniCircles = d3.scaleSqrt().range([10, 50]).domain(speedExtent),
-            scaleX2 = d3.scaleBand().rangeRound([50, (width2)]).domain(events),
-            scaleX2Axis = d3.scaleBand().range([10, (width2-50)]).domain(events),
-            scaleX2Time = d3.scaleTime().domain([date1,date2]).range([0, width2-50]),
-            showOnDate = d3.scaleTime().domain([date1,date2]).range([100,80000]);
+            //scaleX2 = d3.scaleBand().rangeRound([50, (width2)]).domain(events),
+            //scaleX2Axis = d3.scaleBand().range([10, (width2-50)]).domain(events),
+            //scaleX2Time = d3.scaleTime().domain([date1,date2]).range([0, width2-50]),
+            //showOnDate = d3.scaleTime().domain([date1,date2]).range([100,80000]);
+            scaleX2 = d3.scaleBand().rangeRound([50, (width2-50)]).domain(events).padding([50]),
+            scaleX2Axis = d3.scaleBand().range([50, (width2-50)]).domain(events).padding([50]),
+            scaleX2Time = d3.scaleTime().domain([date1,date2]).range([50, width2-50]),
+            showOnDate = d3.scaleTime().domain([date1,date2]).range([100,40000]);
+
 
         var expl = d3.select("#explanation");
 
@@ -618,7 +623,7 @@ function draw1 (err, rows, types, swimmers) {
         sketchingRecords
             .enter()
             .append("a")
-            .attr("xlink:href", "#beginning")
+            //.attr("xlink:href", "#beginning")
             .append("circle")
             .attr("class", function(d){return "swimrecords " + d.id2 + " " + d.event})
             .attr("r",0)
@@ -687,6 +692,7 @@ function draw1 (err, rows, types, swimmers) {
 
 
             }if (type=="competition"){
+                scaleX2.padding([25])
                 plotMiniMenu.selectAll(".swimrecords")
                     .on("mouseover",mouseOverMiniMenuComp)
                     .on("mousemove",mouseOverMiniMenuComp)
@@ -734,12 +740,11 @@ function draw1 (err, rows, types, swimmers) {
 
             d3.select(".custom-tooltip3")
                 .style("left",function(){
-                    if (left>1224){
-
+                    if (left>1224 && left<1600){
                         return (left-25) + "px";
 
-                    }if (left>1650){
-                        return (1650) + "px"
+                    }if (left>1600){
+                        return (width-150) + "px"
                     }
                     else{
                         return (left+50) + "px"
@@ -921,7 +926,7 @@ function draw1 (err, rows, types, swimmers) {
                         .duration(500)
                         .ease(d3.easeQuadInOut)
                         .style("padding-left",(2*(scaleRCircles(speedExtent[1]))+40)+"px")
-                        .style("margin-top",-(500)+"px");
+                        .style("margin-top",-(300)+"px");
 
                 }if (type=="together"){
                     plot2.selectAll(".event")
@@ -941,7 +946,7 @@ function draw1 (err, rows, types, swimmers) {
                         .duration(500)
                         .ease(d3.easeQuadInOut)
                         .style("padding-left",(radius*2-49/2)+"px")
-                        .style("margin-top",-(500)+"px");
+                        .style("margin-top",-(300)+"px");
                 }
             })
 

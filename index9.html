@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sketches</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,600,700,700i,800,900" rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body id="body">
+<div class="firstPart">
+    <div class="container">
+        <div class="col-md-12">
+            <h1 class="row">Swimming World Records through History</h1>
+        </div>
+        <div class="col-md-9">
+            <p class="row intro">A story about <span class="italic">speeds</span></p>
+            <p class="row introduction">Swimming is not only a race between swimmers. It is challenge against the clock that, often, is just decided by milliseconds. </p>
+            <p class="row introduction">This project is an exploration of how much swimming has improved since the beginning of the XX Century. It includes two different visualizations: one that focuses in the average speeds of the world records broken from 1905 to 2016, and another one that provides information about range of times and nationality of the swimmers. Click below to start.</p>
+            <a class="btn row btn-default"  id="speedViz">Explore the speed visualization &darr;</a>
+            <a class="btn row btn-default" id="analyticalViz">Explore the analytical visualization &darr;</a>
+
+        </div>
+        <div class="col-md-3">
+            <img class="icon" src="icon.svg"/>
+        </div>
+
+    </div>
+</div>
+<div id="speedVisualization">
+    <div class="container-fluid" id="speedVizbeginning">
+        <div class="canvas">
+            <h2 class="">Swimming series: becoming faster swimmers</h2>
+            <p class="">Explore this timeline to see how the speed of all competitions have change.</p>
+            <div id="explanation"></div>
+            <div>
+                <div class="speedOptions">
+                    <a class="btn btn-default clustering" id="date1">Sort by date</a>
+                    <a class="btn btn-default clustering" id="competition">Sort by Competition</a>
+                </div>
+                <div class="speedOptions">
+                    <div class="control-module drop-down">
+                        <div class="select">
+                            <select class="form-control swimmer-list2" id="swimmerNames">
+                                <option value="Default">Search a swimmer</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div id="miniMenu" class="row">
+            <div class="custom-tooltip3">
+                <p class="legend"><span id="swimmer3"></span></p>
+                <p class="legend"><span id="country3"></span></p>
+                <p class="legend">Record broken on <span id="date3"></span></p>
+                <p class="legend">Total time: <span id="time3"></span></p>
+                <p class="legend">Speed: <span id="speed3"></span></p>
+
+            </div>
+        </div>
+        <div class="col-md-4 canvas hideViz1" id="speedPlot">
+            <h3 class="row eventTitle">Event: <span id="eventTitle"></span> </h3>
+            <p class="row">Click on the different views to see how the range of speeds have change</p>
+            </br>
+            <a class="row btn btn-default oneEventBtn" id="sex">Separate records by sex</a>
+            <a class="row btn btn-default oneEventBtn" id="together">Cluster records</a>
+        </div>
+        <div class="canvas hideViz1 col-md-8">
+            <div id="sketch2">
+                <div class="custom-tooltip2">
+                    <p class="legend"><span id="swimmer2"></span></p>
+                    <p class="legend">Total time: <span id="time2"></span></p>
+                    <p class="legend">Speed: <span id="speed"></span></p>
+                    <p class="legend"><span id="date2"></span></p>
+                </div>
+            </div>
+            <p class="clock" id="year"></p>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid" id="analyticalVisualization">
+    <h2 class="col-md-12">Analytical view per type of race, country and continent</h2>
+    <div class="col-md-2">
+        <div id="explanation2"></div>
+        <div class="clock col-md-8">
+            <p>Date</p>
+            <p id="timer"> </p>
+        </div>
+        <div class="lists col-md-12">
+            <div class="controls row">
+                <div class="control-module drop-down">
+                    <div class="select">
+                        <span class="list-title">Sort by</span>
+                        <select class="form-control type-list" id="sorting">
+                            <option value="Default">Default</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-module drop-down">
+                    <div class="select">
+                        <span class="list-title">Zoom in a swimmer (default view)</span>
+                        <select class="form-control swimmer-list">
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="canvas col-md-9">
+        <div id="sketch1">
+            <div class="custom-tooltip1">
+                <p class="legend">Swimmer: <span id="swimmer"></span></p>
+                <p class="legend">Time:  <span id="time"></span></p>
+                <p class="legend">Country:  <span id="country"></span></p>
+                <p class="legend">Date:  <span id="date"></span></p>
+
+            </div>
+        </div>
+    </div>
+
+</div><!--.container-->
+<div class="container modal-footer">
+    <div class="col-md-5 creditdiv">
+        <p class="row credits">Irene de la Torre Arenas | February 2016</p>
+        <p class="row credits">Information Design Studio 3 (Fall 2016). Mentored by Mauro Martino</p>
+        <p class="row credits">Thesis Advisor: Pedro Cruz</p>
+        <p class="row credits">Northeastern University</p>
+    </div>
+    <a
+            class="download"
+            href="javascript:(function () { var e = document.createElement('script'); if (window.location.protocol === 'https:') { e.setAttribute('src', 'https://rawgit.com/NYTimes/svg-crowbar/gh-pages/svg-crowbar.js'); } else { e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); } e.setAttribute('class', 'svg-crowbar'); document.body.appendChild(e); })();">
+        <!--⤋--><big>⇩</big> Download
+    </a>
+</div>
+
+
+<!-- Scripts -->
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="lib/crossfilter/crossfilter.js"></script>
+<script src="https://d3js.org/d3-queue.v2.min.js"></script>
+<script src="lib/jquery/jquery-1.11.1.min.js"></script>
+<!--<script src="lib/textures.js"></script>-->
+<script src="lib/physics.js"></script>
+<script src="lib/sketch.min.js"></script>
+<script src="records.js"></script>
+<!--<script src="script5.js"></script>-->
+<script src="script9.js"></script>
+<!--<script src="script11.js"></script>-->
+
+<!--<script src="lib/p5/p5.dom.js"></script>-->
+<script src="lib/p5/p5.js"></script>
+</body>
+</html>

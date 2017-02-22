@@ -56,23 +56,6 @@ p{
 	padding-right: 60px;
 }
 
-#speedVisualization {
-	height:0px;
-	overflow: hidden;
-}
-
-.container-heightSpeed {
-	height: 1090px !important;
-}
-
-#analyticalVisualization {
-	height:0px;
-	overflow: hidden;
-}
-
-.container-heightAnalytical {
-	height: 1090px !important;
-}
 
 #speedPlot{
 	margin-top: 50px;
@@ -101,15 +84,22 @@ p{
 	padding-right: 20px;
 }
 
+.btn{
+	border-radius: 0;
+	font-weight: 600;
+}
+
 .btn-default {
 	border-radius: 0;
 	font-weight: 600;
-	margin-right: 30px;
-	margin-bottom: 10px;
 	background-color: #192f38;
 	color: #758288;
 	border: 1px solid #758288;
 	padding: 7px 12px;
+}
+.speedOptions .btn-default{
+	margin-right: 30px;
+	margin-bottom: 10px;
 }
 
 .firstPart .btn-default {
@@ -117,6 +107,8 @@ p{
 	margin-top: 10px;
 	color: #799ead;
 	border: 1px solid #799ead ;
+	margin-right: 30px;
+	margin-bottom: 10px;
 }
 
 .firstPart .btn-default:hover,
@@ -129,10 +121,52 @@ p{
 	border-color: #799ead;
 	border-radius: 0;
 }
-
-.speedOptions{
-	float:left;
+.btn-default:active:hover, .btn-default.active:hover, .open>.dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open>.dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open>.dropdown-toggle.btn-default.focus {
+	color: #D1D5D7;
+	background-color: #192f38;
+	border: 1px solid #D1D5D7;
 }
+
+.btn-primary {
+	color: #758288;
+	background-color: #192f38;
+	border-color: #758288;
+}
+
+.btn-primary:hover {
+	color: #192f38;
+	background-color: #E7F1F2;
+	border-color: #758288;
+}
+
+.legendIMG{
+	margin-top: 10px;
+	margin-right: 40px;
+	width: 450px;
+	float: left;
+}
+
+.toggle{
+	width: 90px;
+	height: 36px;
+}
+
+.toggle-handle {
+	position: relative;
+	margin: 0 auto;
+	padding-top: 0;
+	padding-bottom: 0;
+	height: 100%;
+	width: 0;
+	border-width: 0 1px;
+	background-color: #E7F1F2 !important;
+}
+
+.toggle.btn {
+	min-width: 70px;
+	min-height: 34px;
+}
+
 .form-control{
 	background-color: #192f38;
 	color: #758288;
@@ -145,6 +179,13 @@ p{
 	font-weight: 600;
 }
 
+.swimmer-list2, #replayViz{
+	margin-top: 35px;
+}
+
+.speedOptions{
+	opacity:0;
+}
 
 .list-title {
 	font-size: 14px;
@@ -307,13 +348,15 @@ p{
 	stroke: #475960;
 	stroke-width: 1;
 }
-
+#eventPlot{
+	height:1000px;
+}
+.event{
+	fill: white;
+	height:50px;
+}
 /*analytical*/
 
-
-#sketch2 svg{
-	height:500px;
-}
 
 #explanation2 svg {
 	height:40px !important;
@@ -343,9 +386,7 @@ p{
 	font-weight: 700;
 }
 
-#sketch2 .control-module{
-	margin-top: 20px;
-}
+
 
 .swim{
 	mix-blend-mode: screen;
@@ -365,13 +406,15 @@ p{
 	padding-left: 20px;
 }
 
-img {
+.icon {
 	width: 60%;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 85px;
 }
+
+
 /*//download svg*/
 .download {
 	background: #333;

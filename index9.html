@@ -5,6 +5,7 @@
     <title>Sketches</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,600,700,700i,800,900" rel="stylesheet">
     <link href="bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet"/>
 </head>
 <body id="body">
@@ -35,14 +36,14 @@
             <div id="explanation"></div>
             <div>
                 <div class="speedOptions">
-                    <a class="btn btn-default clustering" id="date1">Sort by date</a>
-                    <a class="btn btn-default clustering" id="competition">Sort by Competition</a>
+                    <a class="btn btn-default clustering" id="date1">By Date</a>
+                    <a class="btn btn-default clustering" id="competition">By Event</a>
                 </div>
                 <div class="speedOptions">
                     <div class="control-module drop-down">
                         <div class="select">
                             <select class="form-control swimmer-list2" id="swimmerNames">
-                                <option value="Default">Search a swimmer</option>
+                                <option value="Default">Swimmers</option>
                             </select>
                         </div>
                     </div>
@@ -63,11 +64,15 @@
             </div>
         </div>
         <div class="col-md-4 canvas hideViz1" id="speedPlot">
-            <h3 class="row eventTitle">Event: <span id="eventTitle"></span> </h3>
+            <h3 class="row eventTitle"><span id="eventTitle"></span>'s World Records</h3>
             <p class="row">Click on the different views to see how the range of speeds have change</p>
             </br>
-            <a class="row btn btn-default oneEventBtn" id="sex">Separate records by sex</a>
-            <a class="row btn btn-default oneEventBtn" id="together">Cluster records</a>
+            <div class="row">
+                <p>Separate genders</p>
+                <input id="toggle" type="checkbox" checked data-toggle="toggle" data-on="On" data-off="Off">
+            </div>
+            <a class="row btn btn-default oneEventBtn" id="sex">Separate genders</a>
+            <a class="row btn btn-default oneEventBtn" id="together">Combine genders</a>
         </div>
         <div class="canvas hideViz1 col-md-8">
             <div id="sketch2">
@@ -148,14 +153,13 @@
 <script src="lib/crossfilter/crossfilter.js"></script>
 <script src="https://d3js.org/d3-queue.v2.min.js"></script>
 <script src="lib/jquery/jquery-1.11.1.min.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <!--<script src="lib/textures.js"></script>-->
 <script src="lib/physics.js"></script>
 <script src="lib/sketch.min.js"></script>
-<script src="records.js"></script>
-<!--<script src="script5.js"></script>-->
-<script src="script9.js"></script>
-<!--<script src="script11.js"></script>-->
-
+<!--<script src="records.js"></script>-->
+<!--<script src="script9.js"></script>-->
+<script src="script12.js"></script>
 <!--<script src="lib/p5/p5.dom.js"></script>-->
 <script src="lib/p5/p5.js"></script>
 </body>

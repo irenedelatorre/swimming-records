@@ -185,7 +185,9 @@ function draw1 (err, rows, types, swimmers) {
             expl.select(".textExpl1")
                 .transition()
                 .delay(3000)
-                .text("Area and speed of the circle in relation to speed (meters per second) of the record (the fastest the record, the bigger the circle)");
+                .text("Area proportional to record's average speed (the faster, the bigger)");
+
+
 
             startExpl
                 .append("circle")
@@ -254,7 +256,8 @@ function draw1 (err, rows, types, swimmers) {
                 .style("fill","rgba(255,255,255,0)")
                 .style("stroke-width","1px")
                 .style("opacity",1)
-                .attr("cx",function(d,i){return scaleX2Time(d.date)})
+                //.attr("cx",function(d,i){return scaleX2Time(d.date)})
+                .attr("cx",function(d,i){return scaleX2(d.event)})
                 .attr("cy",100)
                 .on("mouseover",mouseOverMiniMenu)
                 .on("mousemove",mouseOverMiniMenu)
@@ -282,8 +285,8 @@ function draw1 (err, rows, types, swimmers) {
                 .delay(5500)
                 .transition()
                 .delay(function(d){return showOnDate(d.date)})
-                .duration(function(d){
-                    return speed((d.speed))})
+                //.duration(function(d){return speed((d.speed))})
+                .duration(3000)
                 .ease(d3.easeQuadInOut)
                 //.ease(d3.easeLinear)
                 .style("stroke-width","0.5px")
@@ -291,8 +294,11 @@ function draw1 (err, rows, types, swimmers) {
                 .attr("r",function(d){
                     return scaleRMiniCircles(d.speed)});
 
+            d3.selectAll(".speedOptions").transition().delay(45000).style("opacity","1");
+
             //btns
             d3.selectAll('.clustering').on('click',function(){
+
                 var form = document.getElementById("swimmerNames");
                 form.selectedIndex=0;
 
@@ -416,7 +422,6 @@ function draw1 (err, rows, types, swimmers) {
 
             swimmerDispatch2.on("selectswimmer", function(swimmer,i) {
 
-                console.log(swimmer)
                 if (swimmer == "All") {
                     d3.selectAll(".swimrecords").style("stroke",function(d){return scaleColor2(d.sex)}).style("stroke-width","0.5px").style("opacity",0.5)
                 } else {
@@ -456,7 +461,6 @@ function draw1 (err, rows, types, swimmers) {
                     tooltip.select("#time3").html("");
                     tooltip.select("#date3").html("");
 
-
                 }
             });
 
@@ -464,9 +468,7 @@ function draw1 (err, rows, types, swimmers) {
 
             function drawEvents (d){
 
-
                 var oneEvent = d;
-                var speedExtent = d3.extent(oneEvent.map(function (d) {return d.speed}));
                 var dateExtent = d3.extent(oneEvent.map(function (d) {return d.date}));
 
                 var radius = (1024/5),
@@ -475,6 +477,8 @@ function draw1 (err, rows, types, swimmers) {
                     scaleX3 = d3.scaleBand().rangeRound([(scaleRCircles(speedExtent[1])), 3*(2*scaleRCircles(speedExtent[1]))]).domain(["Male","Female"]),
                     scaleX3Axis = d3.scaleBand().rangeRound([(scaleRCircles(speedExtent[1]))-radius*1.5, 3*(2*scaleRCircles(speedExtent[1]))-radius*1.5]).domain(["Male","Female"]),
                     speedByTime3 = d3.scaleTime().domain(dateExtent).range([100,20000]);
+
+
 
                 plot2.append('g').attr("transform","translate("+(margin2.l)+","+ (margin2.t)+")").attr('class','oneEvent');
 
@@ -497,7 +501,7 @@ function draw1 (err, rows, types, swimmers) {
                     .style("stroke",function(d){return scaleColor2(d.sex)})
                     .style("stroke-weight","0.5px")
                     .style("fill","none")
-                    .attr("cx",radius*2)
+                    .attr("cx",function(d){return scaleX3(d.sex)})
                     .attr("cy",210)
                     .on("mouseover",mouseOverComp)
                     .on("mousemove",mouseOverComp)
@@ -511,7 +515,6 @@ function draw1 (err, rows, types, swimmers) {
                         return speedByTime3(d.date)})
                     .ease(d3.easeLinear)
                     .on("start",function timer (d){
-                        //console.log(d);
                         d3.select("#year").html(formatYear(d.date))
                             .style("padding-left",(radius*2-49/2)+"px")
                             .style("margin-top",-(300)+"px");
@@ -519,18 +522,33 @@ function draw1 (err, rows, types, swimmers) {
 
                     })
                     .style("opacity",0.5);
-                //
 
 
                 sketchingEvents.exit().remove();
 
                 plot2.selectAll(".bySex").remove();
 
+                plot2.append("text")
+                    .attr("class","axis-x bySex")
+                    .text("Men")
+                    .attr("x",scaleX3("Male"))
+                    .attr("y",460)
+                    .style("text-anchor","middle");
+
+                plot2.append("text")
+                    .attr("class","axis bySex")
+                    .text("Women")
+                    .attr("x",scaleX3("Female"))
+                    .attr("y",460)
+                    .style("text-anchor","middle");
+
 
                 //btns
                 d3.selectAll('.oneEventBtn').on('click',function(d){
-                    var type = d3.select(this).attr('id');
+                    var type = d3.select(this).select();
+
                     if (type=="sex"){
+                        d3.select("#sex").html("Combine genders")
                         plot2.selectAll(".event")
                             .transition()
                             .duration(500)
@@ -1098,4 +1116,3 @@ function parseSwimmer(n){
         .html(n.Swimmer + " (" + n.records + ")")
         .attr("value", n.Swimmer);
 }
-

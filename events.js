@@ -10,8 +10,8 @@ var plotMiniMenu = canvasMiniMenu
     .attr('width',width+margin.r+margin.l)
     .attr('height',height + margin.t + margin.b);
 
-//var widthb = d3.select('#eventPlot').node().clientWidth - margin.r - margin.l,
-//    heightb = d3.select('#eventPlot').node().clientHeight - margin.t - margin.b;
+var widthb = d3.select('#eventPlot').node().clientWidth - margin.r - margin.l,
+    heightb = d3.select('#eventPlot').node().clientHeight - margin.t - margin.b;
 //
 //var canvas2 = d3.select('#eventPlot');
 //var plot2 = canvas2
@@ -38,13 +38,14 @@ var formatDate = d3.timeFormat("%B %d, %Y"),
     scaleY = d3.scaleLinear().range([height, 0]),
     scaleColor2 = d3.scaleOrdinal().domain(["Female","Male"]).range(["#AD1BEA","#0CA3B9"]);
 
-typeDispatch = d3.dispatch('changeviz');
-swimmerDispatch = d3.dispatch('changeswimmer');
-swimmerDispatch2 = d3.dispatch('selectswimmer');
+
+swimmerDispatch = d3.dispatch('selectswimmer');
+swimmerDispatch2 = d3.dispatch('selectswimmer2');
 
 var btnControl;
+var btnControl2;
 
-var events = ["50 m freestyle","50 m backstroke","50 m breaststroke","50 m butterfly","100 m freestyle","100 m backstroke","100 m breaststroke","100 m butterfly","200 m freestyle","200 m backstroke","200 m breaststroke","200 m butterfly","200 m individual medley","400 m freestyle","400 m individual medley","4 x 100 m freestyle relay","4 x 100 m medley relay","800 m freestyle","4 x 200 m freestyle relay","1500 m freestyle"]
+var events = ["50 m freestyle","50 m backstroke","50 m breaststroke","50 m butterfly","100 m freestyle","100 m backstroke","100 m breaststroke","100 m butterfly","200 m freestyle","200 m backstroke","200 m breaststroke","200 m butterfly","200 m individual medley","400 m freestyle","400 m individual medley","800 m freestyle","1500 m freestyle","4 x 100 m freestyle relay","4 x 100 m medley relay","4 x 200 m freestyle relay"]
 
 //TODO: import data, parse, and draw
 //d3.csv("data/20161106-swimming-times.csv", parseData, draw1);
@@ -57,9 +58,8 @@ var queue = d3_queue.queue()
 
 function draw1 (err, rows, types, swimmers) {
 
-    //d3.select(".type-list").on("change", function () {typeDispatch.call("changeviz", this, this.value);});
-    //d3.select(".swimmer-list").on("change", function () {swimmerDispatch.call("changeswimmer", this, this.value);});
-    d3.select(".swimmer-list2").on("change", function () {swimmerDispatch2.call("selectswimmer", this, this.value);});
+    d3.select(".swimmer-list2").on("change", function () {swimmerDispatch.call("selectswimmer", this, this.value);});
+    d3.select(".swimmer-list3").on("change", function () {swimmerDispatch2.call("selectswimmer2", this, this.value);});
 
     var data = rows;
 
@@ -75,18 +75,21 @@ function draw1 (err, rows, types, swimmers) {
     var max = d3.max(data, function(d){return d.time});
     var min = d3.min(data, function(d){return d.time});
 
+    //date
+    var dateExtent = d3.extent(data.map(function (d) {return d.date}));
+
     //y = always, speed dif. depending on TIME
     scaleY = scaleY.domain([0,max]);
     scaleX = scaleX.domain(events).padding([25]) ;
 
     var speed = d3.scaleLinear().domain([min,max]).range([50000,max/3]);
     var speedByTime = d3.scaleTime().domain([date1,date2]).range([100,30000]);
+    var speedExtent = d3.extent(data.map(function (d) {return d.speed}));
 
     //DRAW COMPETITIONS
     drawCompetitions(data);
 
     function drawCompetitions(d){
-        var speedExtent = d3.extent(d.map(function (d) {return d.speed}));
 
         var speed = d3.scaleLinear().domain(speedExtent).range([1000,5000]),
             scaleRMiniCircles = d3.scaleSqrt().range([10, 50]).domain(speedExtent),
@@ -231,7 +234,7 @@ function draw1 (err, rows, types, swimmers) {
         }
 
         //highlight a swimmer
-        swimmerDispatch2.on("selectswimmer", function(swimmer,i) {
+        swimmerDispatch.on("selectswimmer", function(swimmer,i) {
 
             if (swimmer == "All swimmers") {
                 d3.selectAll(".swimrecords").style("stroke",function(d){return scaleColor2(d.sex)}).style("stroke-width","0.5px").style("opacity",0.5)
@@ -245,7 +248,6 @@ function draw1 (err, rows, types, swimmers) {
 
                 var xy = d3.mouse(document.getElementById("miniMenu"));
                 left = scaleX2Time(dataSwimmer[0].date);
-                console.log(left)
 
                 d3.select(".custom-tooltip3")
                     .style("left",function(){
@@ -273,16 +275,17 @@ function draw1 (err, rows, types, swimmers) {
 
     }
 
-
     //small events
     var nestedEvents = d3.nest()
         .key(function (d) {
             return event = d.event
         })
-        .sortKeys(d3.ascending)
+        .sortKeys(function(a,b){
+            return events.indexOf(a) - events.indexOf(b)
+        })
+        .sortValues(function(a,b){
+            return a.date - b.date})
         .entries(data);
-
-    console.log(nestedEvents)
 
     var drawEvents = d3.select(".eventPlot")
         .selectAll(".event")
@@ -291,40 +294,87 @@ function draw1 (err, rows, types, swimmers) {
     drawEvents = drawEvents
         .enter()
         .append('div')
-        .attr('class', 'event col-md-4');
+        .attr('class', 'event col-md-3');
 
     drawEvents
         .each(function (d, i) {
-            //var timeSeries = d3.timeSeries()
-            //    .width(w1/5)
-            //    .height(150)
-            //    .timeRange([new Date(2015, 0, 1), new Date(2016, 0, 1)])
-            //    .value(function (d) {
-            //        return d.startTime;
-            //    })
-            //    .maxY(1800)
-            //    .binSize(d3.time.week)
-            //    .on('hover', function (t) {
-            //        globalDispatch.pickTime(t);
-            //    });
-            //
-            //globalDispatch.on('pickTime.' + i, function (t) {
-            //    timeSeries.showValue(t);
-            //});
+
+            var modality = d.values;
+
+            var widthEvent = d3.select(this).node().clientWidth - margin.r - margin.l,
+                heightEvent = d3.select(this).node().clientHeight - margin.t - margin.b;
+
+            console.log(heightEvent)
+
+            var eventSeries = d3.eventSeries()
+                .width(widthEvent)
+                .height(widthb/4)
+                .radius([widthEvent/10,widthEvent/2])
+                .speedExtent(speedExtent)
+                .dateExtent(dateExtent)
+                .womenColor("#AD1BEA")
+                .menColor("#0CA3B9")
+                .eventNames(eventNames);
 
             d3.select(this)
-                //.datum(d.values)
-                //.call(timeSeries)
-                .append('p')
-                .text(d.key)
-                .attr("class","row h3 event-names")
-                .style("fill","fff")
-                .transition()
-                .duration(500)
-                .style("fill","#333");
-
+                .datum(d.values)
+                .call(eventSeries)
+            ;
         });
 
+    //highlight a swimmer
+    swimmerDispatch2.on("selectswimmer2", function(swimmer,i) {
+
+        if (swimmer == "All swimmers") {
+            d3.selectAll(".recordSpeeds").style("stroke",function(d){return scaleColor2(d.sex)}).style("stroke-width","0.5px").style("opacity",0.5)
+        } else {
+            dataSwimmer = data.filter(function(d){if (d.name==swimmer){return d}})
+
+            var id = dataSwimmer[0].id2;
+
+            d3.selectAll(".recordSpeeds").style("stroke-width","0.15px").style("opacity",0.2);
+            d3.selectAll("."+id).style("stroke-width","1px").style("opacity",1);
+
+        }
+    });
+
+    //highlight sexes
+    d3.select("#showAll").classed("showActive",true);
+
+    d3.select('#showMen').on('click',function(){
+        d3.select("#showMen").classed("showActive",true);
+        d3.select("#showWomen").classed("showActive",false);
+        d3.select("#showAll").classed("showActive",false);
+
+        d3.selectAll(".recordSpeeds").style("stroke-width","0.15px").style("opacity",0.2);
+        d3.selectAll(".eventMale").style("stroke-width","0.5px").style("opacity",1);
+
+    });
+
+    d3.select('#showWomen').on('click',function(){
+        d3.select("#showMen").classed("showActive",false);
+        d3.select("#showWomen").classed("showActive",true);
+        d3.select("#showAll").classed("showActive",false);
+
+        d3.selectAll(".recordSpeeds").style("stroke-width","0.15px").style("opacity",0.2);
+        d3.selectAll(".eventFemale").style("stroke-width","0.5px").style("opacity",1);
+
+    });
+
+    d3.select('#showAll').on('click',function(){
+        d3.select("#showMen").classed("showActive",false);
+        d3.select("#showWomen").classed("showActive",false);
+        d3.select("#showAll").classed("showActive",true);
+
+        d3.selectAll(".recordSpeeds").style("stroke-width","0.5px").style("opacity",0.5);
+
+    });
+
+    d3.select('#up').on('click',function(){
+        $("html, body").animate({
+            scrollTop: ($("#body").offset().top)
+        }, 500);
+    });
 
     //function drawEvents (d){
     //
@@ -541,6 +591,11 @@ function parseType(n){
 
 function parseSwimmer(n){
     d3.select(".swimmer-list2") //class in the html file
+        .append("option") //it has to be called this name
+        .html(n.Swimmer + " (" + n.records + ")")
+        .attr("value", n.Swimmer);
+
+    d3.select(".swimmer-list3") //class in the html file
         .append("option") //it has to be called this name
         .html(n.Swimmer + " (" + n.records + ")")
         .attr("value", n.Swimmer);

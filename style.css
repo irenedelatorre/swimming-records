@@ -4,6 +4,7 @@ html,body,div,ul,li,svg{
 	list-style:none;
 }
 
+
 /*------------Global-------------*/
 html,body{
 	height: 100%;
@@ -33,6 +34,14 @@ h2{
 	margin-bottom: 20px;
 }
 
+h3,.event-names{
+	font-size: 10pt;
+	font-weight: 800;
+	color: #799ead;
+	fill: #D1D5D7;
+	text-transform: uppercase;
+}
+
 p{
 	font-weight: 400;
 	font-size: 0.9em;
@@ -56,11 +65,6 @@ p{
 	padding-right: 60px;
 }
 
-
-#speedPlot{
-	margin-top: 50px;
-}
-
 .firstPart {
 	color: #799ead;
 	background-color: #192f38;
@@ -68,6 +72,29 @@ p{
 	padding-top: 100px;
 	padding-bottom: 30px;
 	border-bottom: 1px solid #213d48;
+}
+
+
+.navSpeedEvent-scrolled {
+	position: fixed !important;
+	top: 0;
+	padding-top: 15px !important;
+	padding-bottom: 30px;
+	box-shadow: 0 4px 7px rgba(0, 0, 0, 0.2), 0 -3px 7px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	left: 0;
+	padding-left: 70px;
+	padding-right: 70px;
+}
+
+.visualizations-scrolled{
+	margin-top: 150px;
+}
+
+.navSpeedEvent{
+	z-index: 150;
+	overflow: hidden;
+	background-color: #192F38;
 }
 
 .intro{
@@ -139,6 +166,8 @@ p{
 	border-color: #758288;
 }
 
+
+
 .legendIMG{
 	margin-top: 10px;
 	margin-right: 40px;
@@ -179,10 +208,18 @@ p{
 	font-weight: 600;
 }
 
-.swimmer-list2, #replayViz{
+.swimmer-list2,.swimmer-list3, #replayViz, #showMen, #showWomen, #showAll, #up{
 	margin-top: 35px;
 }
 
+#up{
+	float:right;
+}
+
+.showActive{
+	background-color: #758288;
+	color: #192f38;
+}
 .speedOptions{
 	opacity:0;
 }
@@ -207,7 +244,8 @@ p{
 .legend{
 	color: #D1D5D7;
 	font-size: 10pt;
-	line-height:0.8em;
+	line-height: 0.8em;
+	fill: #D1D5D7;
 }
 
 .custom-tooltip2,.custom-tooltip1{
@@ -282,6 +320,10 @@ p{
 	/* margin-left: 15px; */
 }
 
+#speedPlot {
+	margin-bottom: 80px;
+}
+
 #eventTitle, .eventTitle {
 	font-weight: 700;
 	font-size: 16pt;
@@ -291,6 +333,15 @@ p{
 	margin-bottom: 15px;
 	margin-top: 10px !important;
 	padding-top: 10px;
+}
+
+.event svg {
+	width: 100%;
+	height: 300px;
+}
+
+.event {
+	margin-bottom:70px;
 }
 
 .swimrecords{
@@ -304,12 +355,8 @@ p{
 	/*stroke-width:0.5px;*/
 }
 
-.color {
-	color: rgba(0,186,255,0.5)
-}
-
-.axis .tick text {
-	font-size: 12px;
+.axis .tick text, .speedTick {
+	font-size: 10pt;
 	pointer-events: none;
 	fill: #758288;
 
@@ -328,7 +375,7 @@ p{
 	stroke-dasharray: 3,2;
 }
 
-.axis .tick line {
+.axis .tick line, .axisLine{
 	fill:none;
 	shape-rendering: crispEdges;
 	stroke: #475960;
@@ -342,19 +389,15 @@ p{
 	stroke: #475960;
 	stroke-width: 1;
 }
-.axisLine {
+
+.tick-speed {
 	fill:none;
 	shape-rendering: crispEdges;
-	stroke: #475960;
+	stroke: rgba(71, 89, 96, 0.66);
 	stroke-width: 1;
+	stroke-dasharray: 3,2;
 }
-#eventPlot{
-	height:1000px;
-}
-.event{
-	fill: white;
-	height:50px;
-}
+
 /*analytical*/
 
 
@@ -394,6 +437,11 @@ p{
 
 
 /*footer*/
+
+.modal-footer {
+	border-top: 1px solid #758288;
+	margin-top: 100px;
+}
 
 .creditdiv {
 	border-left: 1px solid #799ead;

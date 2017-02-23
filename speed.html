@@ -14,6 +14,8 @@
         <div class="col-md-12">
             <p class="row header">Swimming World Records through out History</p>
             <h1 class="row">Swimming modalities: speed thought out history</h1>
+            <a class="btn row btn-default"  id="swimmersViz">Improvements in swimmers' speed</a>
+            <a class="btn row btn-default" id="analyticalViz">Analytical visualization</a>
         </div>
     </div>
 
@@ -22,7 +24,7 @@
     <div class="container-fluid" id="speedVizbeginning">
         <div class="canvas col-md-12">
             <h2 class="">Chronology</h2>
-            <p class="">Explore to see how the speed of all competitions have change.</p>
+            <p class="">Mouse over the timeline to highlight information about specific records</p>
             <img class="legendIMG" src="legend-speed1.svg"/>
             <div class="control-module drop-down col-md-2">
                 <div class="select">
@@ -46,6 +48,20 @@
     <div class="container-fluid">
         <div class="col-md-12 canvas" id="speedPlot">
             <h2 class="row">Records per stroke and distance</h2>
+            <p class="row">Average speeds of records broken from 1900 to 2016, by swimming modality</p>
+            <div class="navSpeedEvent row">
+                <img class="legendIMG" src="legend-speed2.svg"/>
+                <div class="control-module drop-down col-md-2">
+                    <div class="select">
+                        <select class="form-control swimmer-list3" id="swimmerNames3">
+                        </select>
+                    </div>
+                </div>
+                <a class="btn btn-default"  id="showMen">Men's records</a>
+                <a class="btn btn-default"  id="showWomen">Women's records</a>
+                <a class="btn btn-default"  id="showAll">All records</a>
+                <a class="btn btn-default"  id="up">Up</a>
+            </div>
         </div>
         <div id="eventPlot" class="eventPlot"></div>
     </div>
@@ -74,6 +90,8 @@
 <script src="lib/jquery/jquery-1.11.1.min.js"></script>
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script src="lib/sketch.min.js"></script>
+<script src="scroll-speed.js"></script>
+<script src="oneSpeedEvent.js"></script>
 <script src="events.js"></script>
 </body>
 </html>

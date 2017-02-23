@@ -12,12 +12,6 @@ var plotMiniMenu = canvasMiniMenu
 
 var widthb = d3.select('#eventPlot').node().clientWidth - margin.r - margin.l,
     heightb = d3.select('#eventPlot').node().clientHeight - margin.t - margin.b;
-//
-//var canvas2 = d3.select('#eventPlot');
-//var plot2 = canvas2
-//    .append('svg')
-//    .attr('width',widthb+margin.r+margin.l)
-//    .attr('height',heightb + margin.t + margin.b);
 
 //ANALYTICAL VIZ LEGEND
 var expl2 = d3.select("#explanation2");
@@ -200,9 +194,9 @@ function draw1 (err, rows, types, swimmers) {
 
             d3.select(".custom-tooltip3")
                 .style("left",function(){
-                    if (left>1224 && left<1600){
+                    if (left>1224 && left<1500){
                         return (left-25) + "px";
-                    }if (left>1600){
+                    }if (left>1500){
                         return (width-200) + "px"
                     }
                     else{
@@ -251,9 +245,9 @@ function draw1 (err, rows, types, swimmers) {
 
                 d3.select(".custom-tooltip3")
                     .style("left",function(){
-                        if (left>1224){
+                        if (left>(10*(width/12))){
                             return (left-25) + "px";
-                        }if (left>1650){
+                        }if (left>(11*(width/12))){
                             return (1650) + "px"
                         }
                         else{
@@ -376,172 +370,6 @@ function draw1 (err, rows, types, swimmers) {
         }, 500);
     });
 
-    //function drawEvents (d){
-    //
-    //    var oneEvent = d;
-    //    var dateExtent = d3.extent(oneEvent.map(function (d) {return d.date}));
-    //
-    //    var radius = (1024/5),
-    //        speedSlower = d3.scaleLinear().domain(speedExtent).range([1000,5000]),
-    //        scaleRCircles = d3.scaleSqrt().range([(radius/3), radius]).domain(speedExtent),
-    //        scaleX3 = d3.scaleBand().rangeRound([(scaleRCircles(speedExtent[1])), 3*(2*scaleRCircles(speedExtent[1]))]).domain(["Male","Female"]),
-    //        scaleX3Axis = d3.scaleBand().rangeRound([(scaleRCircles(speedExtent[1]))-radius*1.5, 3*(2*scaleRCircles(speedExtent[1]))-radius*1.5]).domain(["Male","Female"]),
-    //        speedByTime3 = d3.scaleTime().domain(dateExtent).range([100,20000]);
-    //
-    //
-    //
-    //    plot2.append('g').attr("transform","translate("+(margin.l)+","+ (margin.t)+")").attr('class','oneEvent');
-    //
-    //    sketchingEvents = plot2.select(".oneEvent")
-    //        .selectAll(".event")
-    //        .data(oneEvent);
-    //
-    //    sketchingEvents
-    //        .enter()
-    //        .append("circle")
-    //        .attr("class", function(d,i){
-    //            if (d[i]==d[oneEvent.lenght-1]){
-    //                return "event" + " lastevent"
-    //            }else{
-    //                return "event"
-    //            }
-    //        })
-    //        .attr("r",(radius/3))
-    //        .style("opacity",0)
-    //        .style("stroke",function(d){return scaleColor2(d.sex)})
-    //        .style("stroke-weight","0.5px")
-    //        .style("fill","none")
-    //        .attr("cx",function(d){return scaleX3(d.sex)})
-    //        .attr("cy",210)
-    //        .on("mouseover",mouseOverComp)
-    //        .on("mousemove",mouseOverComp)
-    //        .on("click",mouseOverComp)
-    //        .on("mouseleave",mouseLeaveComp)
-    //        //.on("click",mouseClick2)
-    //        .transition()
-    //        .duration(function(d){return speedSlower((d.speed))})
-    //        .attr("r",function(d){return scaleRCircles(d.speed)})
-    //        .delay(function(d){
-    //            return speedByTime3(d.date)})
-    //        .ease(d3.easeLinear)
-    //        .on("start",function timer (d){
-    //            d3.select("#year").html(formatYear(d.date))
-    //                .style("padding-left",(radius*2-49/2)+"px")
-    //                .style("margin-top",-(300)+"px");
-    //            d3.select(this).style("opacity",1)
-    //
-    //        })
-    //        .style("opacity",0.5);
-    //
-    //
-    //    sketchingEvents.exit().remove();
-    //
-    //    plot2.selectAll(".bySex").remove();
-    //
-    //    plot2.append("text")
-    //        .attr("class","axis-x bySex")
-    //        .text("Men")
-    //        .attr("x",scaleX3("Male"))
-    //        .attr("y",460)
-    //        .style("text-anchor","middle");
-    //
-    //    plot2.append("text")
-    //        .attr("class","axis bySex")
-    //        .text("Women")
-    //        .attr("x",scaleX3("Female"))
-    //        .attr("y",460)
-    //        .style("text-anchor","middle");
-    //
-    //
-    //    //btns
-    //    d3.selectAll('.oneEventBtn').on('click',function(d){
-    //        var type = d3.select(this).select();
-    //
-    //        if (type=="sex"){
-    //            d3.select("#sex").html("Combine genders")
-    //            plot2.selectAll(".event")
-    //                .transition()
-    //                .duration(500)
-    //                .attr("r",function(d){return scaleRCircles(d.speed)})
-    //                .attr("cx",function(d){return scaleX3(d.sex)})
-    //                .style("opacity",0.50);
-    //
-    //            plot2.append("text")
-    //                .attr("class","axis-x bySex")
-    //                .text("Men")
-    //                .attr("x",scaleX3("Male"))
-    //                .attr("y",460)
-    //                .style("text-anchor","middle");
-    //
-    //            plot2.append("text")
-    //                .attr("class","axis bySex")
-    //                .text("Women")
-    //                .attr("x",scaleX3("Female"))
-    //                .attr("y",460)
-    //                .style("text-anchor","middle");
-    //
-    //            var lastYear = (oneEvent[oneEvent.length-1].date);
-    //
-    //            d3.select("#year").html(formatYear(lastYear))
-    //                .transition()
-    //                .duration(500)
-    //                .ease(d3.easeQuadInOut)
-    //                .style("padding-left",(2*(scaleRCircles(speedExtent[1]))+40)+"px")
-    //                .style("margin-top",-(300)+"px");
-    //
-    //        }if (type=="together"){
-    //            plot2.selectAll(".event")
-    //                .transition()
-    //                .duration(500)
-    //                .ease(d3.easeQuadInOut)
-    //                .attr("r",function(d){return scaleRCircles(d.speed)})
-    //                .attr("cx",radius*2)
-    //                .style("opacity",0.50);
-    //
-    //            plot2.selectAll(".bySex").remove();
-    //
-    //            var lastYear = (oneEvent[oneEvent.length-1].date);
-    //
-    //            d3.select("#year").html(formatYear(lastYear))
-    //                .transition()
-    //                .duration(500)
-    //                .ease(d3.easeQuadInOut)
-    //                .style("padding-left",(radius*2-49/2)+"px")
-    //                .style("margin-top",-(300)+"px");
-    //        }
-    //    })
-    //
-    //    function mouseOverComp(d){
-    //        d3.select(this).style("stroke","white").style("stroke-width","2px").style("opacity",1);
-    //        d3.select("#year").html(formatYear(d.date))
-    //        var xy = d3.mouse(document.getElementById("sketch"));
-    //        var left = xy[0],
-    //            top = xy[1];
-    //
-    //        d3.select(".custom-tooltip2")
-    //            .style("left", (left+40)+ "px")
-    //            .style("top", top+ "px")
-    //            .style("opacity",1);
-    //
-    //        var tooltip = d3.select(".custom-tooltip2");
-    //        tooltip.select("#swimmer2").html(d.name);
-    //        tooltip.select("#speed").html(formatSpeed(d.speed) + " meters/second");
-    //        tooltip.select("#time2").html(msToTime(d.time));
-    //        tooltip.select("#date2").html(formatDate(d.date));
-    //
-    //
-    //    }
-    //    function mouseLeaveComp (d){
-    //        d3.select(this).style("stroke",function(d){return scaleColor2(d.sex)}).style("stroke-width","0.5px").style("opacity",0.5);
-    //        var lastYear = (oneEvent[oneEvent.length-1].date);
-    //        d3.select("#year").html(formatYear(lastYear));
-    //
-    //        d3.select(".custom-tooltip2")
-    //            .style("opacity",0);
-    //    }
-    //
-    //
-    //}
 }
 
 

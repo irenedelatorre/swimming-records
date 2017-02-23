@@ -1,0 +1,22 @@
+Event,id,Number
+All events,ev_0,2359
+50 m freestyle,ev_1,56
+50 m backstroke,ev_2,25
+50 m breaststroke,ev_3,22
+50 m butterfly,ev_4,18
+100 m freestyle,ev_5,115
+100 m backstroke,ev_6,73
+100 m breaststroke,ev_7,96
+100 m butterfly,ev_8,77
+200 m freestyle,ev_9,115
+200 m backstroke,ev_10,116
+200 m breaststroke,ev_11,138
+200 m butterfly,ev_12,87
+200 m individual medley,ev_13,88
+400 m freestyle,ev_14,133
+400 m individual medley,ev_15,82
+800 m freestyle,ev_16,112
+1500 m freestyle,ev_17,90
+4 x 100 m freestyle relay,ev_18,332
+4 x 100 m medley relay,ev_19,336
+4 x 200 m freestyle relay,ev_20,248

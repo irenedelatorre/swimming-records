@@ -4,6 +4,13 @@ html,body,div,ul,li,svg{
 	list-style:none;
 }
 
+#speedPlot {
+	margin-bottom: 80px;
+}
+
+#analyticalPlot{
+	margin-bottom: 40px;
+ }
 
 /*------------Global-------------*/
 html,body{
@@ -46,6 +53,12 @@ p{
 	font-weight: 400;
 	font-size: 0.9em;
 	/*color: #E7F1F2;*/
+}
+a{
+	font-weight: 400;
+	font-size: 0.9em;
+	color: #799ead;
+
 }
 
 .container .section{
@@ -320,9 +333,6 @@ p{
 	/* margin-left: 15px; */
 }
 
-#speedPlot {
-	margin-bottom: 80px;
-}
 
 #eventTitle, .eventTitle {
 	font-weight: 700;
@@ -355,7 +365,7 @@ p{
 	/*stroke-width:0.5px;*/
 }
 
-.axis .tick text, .speedTick {
+.axis .tick text, .speedTick,.legendtick {
 	font-size: 10pt;
 	pointer-events: none;
 	fill: #758288;
@@ -400,7 +410,6 @@ p{
 
 /*analytical*/
 
-
 #explanation2 svg {
 	height:40px !important;
 	fill: #D1D5D7;
@@ -410,10 +419,6 @@ p{
 .clock {
 	min-height: 68px;
 	font-size: 11pt;
-	background-color: #192f38;
-	color: #D1D5D7;
-	border-radius: 0;
-	border: 1px solid #D1D5D7;
 	/* display: inline-block; */
 	margin-bottom: 20px;
 	text-align: center;
@@ -422,6 +427,11 @@ p{
 	padding: 6px 12px;
 	line-height: 1.35;
 	user-select: none;
+	background-color: #192f38;
+	color: #758288;
+	font-weight: 600;
+	border-radius: 0;
+	border: 1px solid #758288;
 }
 
 #timer{

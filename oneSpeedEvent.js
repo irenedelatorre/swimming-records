@@ -100,7 +100,6 @@ d3.eventSeries = function(){
             .attr("class", function(d,i){
                 return "event"+d.sex + " " + d.id2 + " event recordSpeeds modality"
             })
-            //.attr("r",(radius/3))
             .style("opacity",0)
             .style("stroke",function(d){if (d.sex=="Female"){return womenColor}else{return menColor}})
             .style("stroke-width","0.5px")
@@ -108,17 +107,10 @@ d3.eventSeries = function(){
             .attr("cx",(chartW/2))
             .attr("cy",function(d){
                 return chartH/2+ m.t-scaleRCircles(d.speed)})
-            //.on("mouseover",mouseOverComp)
-            //.on("mousemove",mouseOverComp)
-            //.on("click",mouseOverComp)
-            //.on("mouseleave",mouseLeaveComp)
-            //.on("click",mouseClick2)
             .attr("r",function(d){
                 return scaleRCircles(d.speed)})
             .transition()
             .duration(function(d){return speedSlower(d.speed)})
-            .delay(function(d){
-                return speedByTime3(d.date)})
             .ease(d3.easeLinear)
             .style("opacity",0.5);
     }

@@ -45,7 +45,7 @@ var events = ["50 m freestyle","50 m backstroke","50 m breaststroke","50 m butte
 //d3.csv("data/20161106-swimming-times.csv", parseData, draw1);
 
 var queue = d3_queue.queue()
-    .defer(d3.csv,'data/20161106-swimming-times.csv',parseData)
+    .defer(d3.csv,'data/data.csv',parseData)
     .defer(d3.csv,'data/metadata.csv',parseType)
     .defer(d3.csv,'data/swimmer-metadata.csv',parseSwimmer)
     .await(draw1);
@@ -56,6 +56,7 @@ function draw1 (err, rows, types, swimmers) {
     d3.select(".swimmer-list3").on("change", function () {swimmerDispatch2.call("selectswimmer2", this, this.value);});
 
     var data = rows;
+
 
     //FILTERS
     var data = rows.sort(function(a,b){return a.date - b.date}),
@@ -105,7 +106,7 @@ function draw1 (err, rows, types, swimmers) {
 
         drawMiniMenu(data);
 
-        d3.select("#replayViz").html("Stop animation");
+        d3.select("#replayViz").html("Finish animation");
 
         d3.select('#replayViz').on('click',function(){
             if (btnControl==1){
@@ -113,7 +114,7 @@ function draw1 (err, rows, types, swimmers) {
                 d3.selectAll(".swimrecords").remove();
                 drawMiniMenu(data);
 
-                d3.select("#replayViz").html("Stop animation");
+                d3.select("#replayViz").html("Finish animation");
 
                 btnControl = 0;
 
@@ -375,6 +376,7 @@ function draw1 (err, rows, types, swimmers) {
 
 
 function parseData(d){
+    console.log(d);
     return {
         id: d["id"],
         id2: d["id2"],

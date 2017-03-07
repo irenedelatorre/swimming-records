@@ -40,7 +40,7 @@ var events = ["50 m freestyle","50 m backstroke","50 m breaststroke","50 m butte
 //d3.csv("data/20161106-swimming-times.csv", parseData, draw1);
 
 var queue = d3_queue.queue()
-    .defer(d3.csv,'data/20161106-swimming-times.csv',parseData)
+    .defer(d3.csv,'data/data.csv',parseData)
     .defer(d3.csv,'data/metadata.csv',parseType)
     .defer(d3.csv,'data/swimmer-metadata.csv',parseSwimmer)
     .defer(d3.csv,'data/events-metadata.csv',parseEvents)
@@ -73,7 +73,7 @@ function draw1 (err, rows, types, swimmers, listofevents) {
     scaleX = scaleX.domain(events).padding([25]) ;
 
     var speed = d3.scaleLinear().domain([min,max]).range([50000,max/3]);
-    var speedByTime = d3.scaleTime().domain([date1,date2]).range([100,30000]);
+    var speedByTime = d3.scaleTime().domain([date1,date2]).range([100,5000]);
 
     showAnalyticalViz(data)
 
@@ -185,12 +185,12 @@ function draw1 (err, rows, types, swimmers, listofevents) {
             .style("opacity",0.50)
             .delay(function(d){return speedByTime(d.date)})
             .on("start", function timer(d){d3.select("#timer").html(formatDate2(d.date))})
-            .duration(500)
+            .duration(100)
             .ease(d3.easeLinear)
             .attr("cx",function(d,i){
                 if (d.sex=="Male"){
-                    return scaleX(d.event)-5
-                }else{return scaleX(d.event)+5}
+                    return scaleX(d.event)-8+(Math.random()* (3 + 0.5) - 0.5);
+                }else{return scaleX(d.event)+8+(Math.random()* (3 + 0.5) - 0.5);}
             })
             .attr("cy",function(d,i){
                 return scaleY(d.time)
@@ -275,8 +275,8 @@ function draw1 (err, rows, types, swimmers, listofevents) {
                     .ease(d3.easeQuadInOut)
                     .attr("cx",function(d,i){
                         if (d.sex=="Male"){
-                            return scaleX(d.event)-5
-                        }else{return scaleX(d.event)+5}
+                            return scaleX(d.event)-8+(Math.random()* (3 + 0.5) - 0.5);
+                        }else{return scaleX(d.event)+8+(Math.random()* (3 + 0.5) - 0.5);}
                     })
                     .attr("cy",function(d,i){return scaleY(d.time)})
                     .attr("r",1).style("opacity",0.1)
@@ -293,8 +293,8 @@ function draw1 (err, rows, types, swimmers, listofevents) {
                     .style("fill",function(d){return scaleColor2(d.sex)})
                     .attr("cx",function(d,i){
                         if (d.sex=="Male"){
-                            return scaleX(d.event)-5
-                        }else{return scaleX(d.event)+5}
+                            return scaleX(d.event)-8+(Math.random()* (3 + 0.5) - 0.5);
+                        }else{return scaleX(d.event)+8+(Math.random()* (3 + 0.5) - 0.5);}
                     })
                     .attr("cy",function(d,i){return scaleY(d.time)});
             }
@@ -386,8 +386,8 @@ function draw1 (err, rows, types, swimmers, listofevents) {
                     .style("fill",function(d){return scaleColor2(d.sex)})
                     .attr("cx",function(d,i){
                         if (d.sex=="Male"){
-                            return scaleX(d.event)-5
-                        }else{return scaleX(d.event)+5}
+                            return scaleX(d.event)-8+(Math.random()* (3 + 0.5) - 0.5);
+                        }else{return scaleX(d.event)+8+(Math.random()* (3 + 0.5) - 0.5);}
                     })
                     .attr("cy",function(d,i){return scaleY(d.time)});
             }
@@ -442,8 +442,8 @@ function draw1 (err, rows, types, swimmers, listofevents) {
                 .style("opacity",0)
                 .attr("cx",function(d,i){
                     if (d.sex=="Male"){
-                        return scaleX(d.event)-5
-                    }else{return scaleX(d.event)+5}
+                        return scaleX(d.event)-8+(Math.random()* (3 + 0.5) - 0.5);
+                    }else{return scaleX(d.event)+8+(Math.random()* (3 + 0.5) - 0.5);}
                 })
                 .attr("cy",(height))
                 .transition()
@@ -464,13 +464,13 @@ function draw1 (err, rows, types, swimmers, listofevents) {
 
             sketchingSwims
                 .transition()
-                .duration(1000)
+                .duration(500)
                 .attr("r",3)
                 .style("opacity",0.52)
                 .attr("cx",function(d,i){
                     if (d.sex=="Male"){
-                        return scaleX(d.event)-5
-                    }else{return scaleX(d.event)+5}
+                        return scaleX(d.event)-8+(Math.random()* (3 + 0.5) - 0.5);
+                    }else{return scaleX(d.event)+8+(Math.random()* (3 + 0.5) - 0.5);}
                 })
                 .attr("cy",function(d,i){
                     return scaleY(d.time)
@@ -518,7 +518,7 @@ function draw1 (err, rows, types, swimmers, listofevents) {
                 .transition()
                 .duration(1000)
                 .ease(d3.easeQuadInOut)
-                .attr("cx",function(d,i){return scaleX(d.country)})
+                .attr("cx",function(d,i){return scaleX(d.country)+(Math.random()* (3 + 0.5) - 0.5)})
                 .attr("cy",function(d,i){return scaleY(d.nCountry)})
                 .attr("r",3)
                 .style("opacity",0.50)
@@ -555,7 +555,7 @@ function draw1 (err, rows, types, swimmers, listofevents) {
                 .transition()
                 .duration(1000)
                 .ease(d3.easeQuadInOut)
-                .attr("cx",function(d,i){return (scaleX(d.continent))})
+                .attr("cx",function(d,i){return (scaleX(d.continent)+(Math.random()* (3 + 0.5) - 0.5))})
                 .attr("cy",function(d,i){return scaleY(d.nContinent)})
                 .attr("r",3)
                 .style("opacity",0.50)

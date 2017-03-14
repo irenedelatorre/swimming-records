@@ -1,5 +1,5 @@
 //canvas1
-var margin = {t:50,r:50,b:200,l:50};
+var margin = {t:50,r:50,b:200,l:70};
 var width = document.getElementById('sketch1').clientWidth - margin.r - margin.l,
     height = document.getElementById('sketch1').clientHeight - margin.t - margin.b;
 
@@ -9,28 +9,28 @@ var plot = canvas1
     .attr('width',width+margin.r+margin.l)
     .attr('height',height + margin.t + margin.b);
 
-//MINIMENU
-var margin2 = {t:5,r:5,b:5,l:5};
-var width2 = d3.select('#miniMenu').node().clientWidth - margin2.r - margin2.l,
-    height2 = d3.select('#miniMenu').node().clientHeight - margin2.t - margin2.b;
-
-var canvasMiniMenu = d3.select('#miniMenu');
-
-var plotMiniMenu = canvasMiniMenu
-    .append('svg')
-    .attr('width',width2+margin2.r+margin2.l)
-    .attr('height',height2 + margin2.t + margin2.b);
-
-//CANVAS2
-var width2b = d3.select('#sketch2').node().clientWidth - margin2.r - margin2.l,
-    height2b = d3.select('#sketch2').node().clientHeight - margin2.t - margin2.b;
-
-var canvas2 = d3.select('#sketch2');
-
-var plot2 = canvas2
-    .append('svg')
-    .attr('width',width2b+margin2.r+margin2.l)
-    .attr('height',height2b + margin2.t + margin2.b);
+////MINIMENU
+//var margin2 = {t:5,r:5,b:5,l:5};
+//var width2 = d3.select('#miniMenu').node().clientWidth - margin2.r - margin2.l,
+//    height2 = d3.select('#miniMenu').node().clientHeight - margin2.t - margin2.b;
+//
+//var canvasMiniMenu = d3.select('#miniMenu');
+//
+//var plotMiniMenu = canvasMiniMenu
+//    .append('svg')
+//    .attr('width',width2+margin2.r+margin2.l)
+//    .attr('height',height2 + margin2.t + margin2.b);
+//
+////CANVAS2
+//var width2b = d3.select('#sketch2').node().clientWidth - margin2.r - margin2.l,
+//    height2b = d3.select('#sketch2').node().clientHeight - margin2.t - margin2.b;
+//
+//var canvas2 = d3.select('#sketch2');
+//
+//var plot2 = canvas2
+//    .append('svg')
+//    .attr('width',width2b+margin2.r+margin2.l)
+//    .attr('height',height2b + margin2.t + margin2.b);
 
 var formatDate = d3.timeFormat("%B %d, %Y"),
     formatDate2 = d3.timeFormat("%b %d, %Y"),
@@ -46,7 +46,7 @@ swimmerDispatch = d3.dispatch('changeswimmer');
 //d3.csv("data/20161106-swimming-times.csv", parseData, draw1);
 
 var queue = d3_queue.queue()
-    .defer(d3.csv,'data/20161106-swimming-times.csv',parseData)
+    .defer(d3.csv,'data/data.csv',parseData)
     .defer(d3.csv,'data/metadata.csv',parseType)
     .defer(d3.csv,'data/swimmer-metadata.csv',parseSwimmer)
     .await(draw1);
@@ -288,7 +288,7 @@ function draw1 (err, rows, types, swimmers) {
             .tickFormat(msToTime)
             .tickSizeInner(-width);
 
-        plot.append('g').attr('transform','translate('+ margin.l+','+ margin.t+')').attr('class','axis axis-y');
+        plot.append('g').attr('transform','translate('+ (margin.l)+','+ margin.t+')').attr('class','axis axis-y');
         plot.append('g').attr('transform','translate('+ margin.l+','+ (margin.t+height)+')').attr('class','axis axis-x');
         plot.append('g').attr("transform","translate("+(margin.l+26)+","+ margin.t+")").attr('class','dots');
 
@@ -495,126 +495,159 @@ function draw1 (err, rows, types, swimmers) {
     }
 
     //DRAW COMPETITIONS
-    drawCompetitions(data);
+    //drawCompetitions(data);
 
-    function drawCompetitions(d){
-        var speed = d3.scaleLinear().domain([min,max]).range([100,2000]),
-            scaleRMiniCircles = d3.scaleLinear().range([20, 40]).domain([min,max]),
-            scaleX2 = d3.scaleBand().rangeRound([0, width2]).domain(events),
-            speedByTime2 = d3.scaleTime().domain([date1,date2]).range([100,10000]);
-
-        plotMiniMenu
-            .append("line")
-            .attr("x1", 0)
-            .attr("x2",width2)
-            .attr("y1",105)
-            .attr("y2",105)
-            .attr("class","axisLine");
-
-        plotMiniMenu.append('g').attr("transform","translate("+(margin2.l+20)+","+ margin2.t+")").attr('class','competition');
-        plotMiniMenu.append('g').attr("transform","translate("+(margin2.l)+","+ margin2.t+")").attr('class','eventTitle');
-
-
-        sketchingRecords = plotMiniMenu.select(".competition")
-            .selectAll(".swimrecords")
-            .data(data);
-
-        sketchingRecords
-            .enter()
-            .append("circle")
-            .attr("class", function(d){return "swimrecords " + d.id2})
-            .attr("r",0)
-            .style("stroke",function(d){return scaleColor2(d.sex)})
-            .style("fill","rgba(255,255,255,0)")
-            .style("opacity",0.25)
-            .attr("cx",function(d,i){return scaleX2(d.event)})
-            .attr("cy",100)
-            .on("mouseover",mouseOver2)
-            .on("mousemove",mouseOver2)
-            //.on("mouseout",mouseout)
-            .on("click",function(d){
-                plot2.select(".oneEvent").remove();
-                var swimEvent = swimsByEvent.filter(d.event).top(Infinity);
-                drawEvents(swimEvent);
-                d3.select("#eventTitle").html("Event " + d.event);
-                d3.selectAll('.btn-default').style("opacity",100)
-            })
-            .transition()
-            .delay(function(d){return speedByTime2(d.date)})
-            .duration(function(d){
-                return speed((d.time))})
-            .ease(d3.easeQuadInOut)
-            //.ease(d3.easeLinear)
-            .attr("r",function(d){return scaleRMiniCircles(d.time)});
-
-        function drawEvents (d){
-
-            plot2.append('g').attr("transform","translate("+(margin2.l)+","+ (margin2.t)+")").attr('class','oneEvent');
-
-            var oneEvent = d;
-            var radius = width2b/5,
-                max2 = d3.max(oneEvent, function(d){return d.time}),
-                min2 = d3.min(oneEvent, function(d){return d.time}),
-                speedSlower = d3.scaleLinear().domain([0,max2]).range([1000,10000]),
-                scaleRCircles = d3.scaleLinear().range([(radius/3), radius]).domain([min2,max2]),
-                scaleX3 = d3.scaleBand().rangeRound([(width2b/4), (3*(width2b/4)+radius*2)]).domain(["Male","Female"]),
-                speedByTime3 = d3.scaleTime().domain([date1,date2]).range([100,10000]);
-
-            sketchingEvents = plot2.select(".oneEvent")
-                .selectAll(".event")
-                .data(oneEvent);
-
-            sketchingEvents
-                .enter()
-                .append("circle")
-                .attr("class", function(d){
-                    return "event"})
-                .attr("r",0)
-                .style("opacity",0.25)
-                .style("stroke",function(d){return scaleColor2(d.sex)})
-                .style("stroke-weight","0.5px")
-                .style("fill","none")
-                .attr("cx",width2b/2)
-                .attr("cy",250)
-                .transition()
-                .duration(function(d){
-                    return speedSlower((d.time))})
-                .ease(d3.easeLinear)
-                //.ease(d3.easeQuadInOut)
-                .attr("r",function(d){return scaleRCircles(d.time)})
-                .style("opacity",0.50)
-                .style("stroke-weight","0.5px");
-
-            //btns
-            d3.selectAll('.btn').on('click',function(){
-                var type = d3.select(this).attr('id');
-                if (type=="sex"){
-                    plot2.selectAll(".event")
-                        .transition()
-                        .duration(500)
-                        .attr("r",function(d){return scaleRCircles(d.time)})
-                        .attr("cx",function(d){return scaleX3(d.sex)})
-                }else{
-                    plot2.selectAll(".event")
-                        .transition()
-                        .duration(500)
-                        .ease(d3.easeQuadInOut)
-                        .attr("r",function(d){return scaleRCircles(d.time)})
-                        .attr("cx",width2b/2)
-                }
-            })
-
-        }
-
-        function mouseOver2(d){
-            var tooltip = d3.select(".custom-tooltip2");
-            tooltip.select("#type").html(d.event);
-
-            d3.select(".custom-tooltip2")
-                .style("left",(scaleX2(d.event)-50)+"px")
-                .style("top", 220 +"px")
-        }
-    }
+    //function drawCompetitions(d){
+    //    var speed = d3.scaleLinear().domain([min,max]).range([100,2000]),
+    //        scaleRMiniCircles = d3.scaleLinear().range([1, 100]).domain([0,max]),
+    //        scaleX2 = d3.scaleBand().rangeRound([0, width2]).domain(events),
+    //        speedByTime2 = d3.scaleTime().domain([date1,date2]).range([100,10000]);
+    //
+    //    plotMiniMenu
+    //        .append("line")
+    //        .attr("x1", 0)
+    //        .attr("x2",width2)
+    //        .attr("y1",105)
+    //        .attr("y2",105)
+    //        .attr("class","axisLine");
+    //
+    //    plotMiniMenu.append('g').attr("transform","translate("+(margin2.l)+","+ margin2.t+")").attr('class','competition');
+    //    plotMiniMenu.append('g').attr("transform","translate("+(margin2.l)+","+ margin2.t+")").attr('class','eventTitle');
+    //
+    //
+    //    sketchingRecords = plotMiniMenu.select(".competition")
+    //        .selectAll(".swimrecords")
+    //        .data(data);
+    //
+    //    sketchingRecords
+    //        .enter()
+    //        .append("circle")
+    //        .attr("class", function(d){return "swimrecords " + d.id2})
+    //        .attr("r",0)
+    //        .style("stroke",function(d){return scaleColor2(d.sex)})
+    //        .style("fill","rgba(255,255,255,0)")
+    //        .style("opacity",0.25)
+    //        .attr("cx",function(d,i){return scaleX2(d.event)})
+    //        .attr("cy",100)
+    //        .on("mouseover",mouseOver2)
+    //        .on("mousemove",mouseOver2)
+    //        //.on("mouseout",mouseout)
+    //        .on("click",function(d){
+    //            plot2.select(".oneEvent").remove();
+    //            var swimEvent = swimsByEvent.filter(d.event).top(Infinity);
+    //            drawEvents(swimEvent);
+    //            d3.select("#eventTitle").html("Event " + d.event);
+    //            d3.selectAll('.btn-default').style("opacity",100)
+    //        })
+    //        .transition()
+    //        .delay(function(d){return speedByTime2(d.date)})
+    //        .duration(function(d){
+    //            return speed((d.time))})
+    //        .ease(d3.easeQuadInOut)
+    //        //.ease(d3.easeLinear)
+    //        .attr("r",function(d){return scaleRMiniCircles(d.time)});
+    //
+    //    function drawEvents (d){
+    //
+    //        plot2.append('g').attr("transform","translate("+(margin2.l)+","+ (margin2.t)+")").attr('class','oneEvent');
+    //
+    //        var oneEvent = d;
+    //        var radius = width2b/5,
+    //            max2 = d3.max(oneEvent, function(d){return d.time}),
+    //            min2 = d3.min(oneEvent, function(d){return d.time}),
+    //            speedSlower = d3.scaleLinear().domain([0,max2]).range([1000,10000]),
+    //            scaleRCircles = d3.scaleLinear().range([(radius/3), radius]).domain([min2,max2]),
+    //            scaleX3 = d3.scaleBand().rangeRound([(width2b/4), (3*(width2b/4)+radius*2)]).domain(["Male","Female"]),
+    //            speedByTime3 = d3.scaleTime().domain([date1,date2]).range([100,10000]);
+    //
+    //        sketchingEvents = plot2.select(".oneEvent")
+    //            .selectAll(".event")
+    //            .data(oneEvent);
+    //
+    //        sketchingEvents
+    //            .enter()
+    //            .append("circle")
+    //            .attr("class", function(d){
+    //                return "event"})
+    //            .attr("r",0)
+    //            .style("opacity",0.25)
+    //            .style("stroke",function(d){return scaleColor2(d.sex)})
+    //            .style("stroke-weight","0.5px")
+    //            .style("fill","none")
+    //            .attr("cx",width2b/2)
+    //            .attr("cy",250)
+    //            .transition()
+    //            .duration(function(d){
+    //                return speedSlower((d.time))})
+    //            .ease(d3.easeLinear)
+    //            //.ease(d3.easeQuadInOut)
+    //            .attr("r",function(d){return scaleRCircles(d.time)})
+    //            .style("opacity",0.50)
+    //            .style("stroke-weight","0.5px")
+    //            //.on("start", function timer(d){
+    //            //    d3.select("#timer2").html(msToTime(d.time))
+    //            //})
+    //
+    //        //sketchingEvents
+    //        //    .enter()
+    //        //    .append("circle")
+    //        //    .attr("class", function(d){
+    //        //        return "event"})
+    //        //    .attr("r",0)
+    //        //    .style("opacity",0.25)
+    //        //    .style("stroke",function(d){return scaleColor2(d.sex)})
+    //        //    .style("stroke-weight","0.5px")
+    //        //    .style("fill","none")
+    //        //    .attr("cx",width2b/2)
+    //        //    .attr("cy",250)
+    //        //    .transition()
+    //        //    .duration(function(d){
+    //        //        return speedSlower((d.time))})
+    //        //    //.ease(d3.easeLinear)
+    //        //    .delay(function(d){return speedByTime3(d.date)})
+    //        //    //.ease(d3.easeQuadInOut)
+    //        //    .attr("r",function(d){return scaleRCircles(d.time)})
+    //        //    .style("opacity",0.50)
+    //        //    .style("stroke-weight","0.5px")
+    //        //    .transition()
+    //        //    .duration(50)
+    //        //    .style("opacity",0.75)
+    //        //    .style("stroke-weight","4px")
+    //        //    .transition()
+    //        //    .duration(500)
+    //        //    .style("opacity",0.50)
+    //        //    .style("stroke-weight","0.5px")
+    //
+    //        //btns
+    //        d3.selectAll('.btn').on('click',function(){
+    //            var type = d3.select(this).attr('id');
+    //            if (type=="sex"){
+    //                plot2.selectAll(".event")
+    //                    .transition()
+    //                    .duration(500)
+    //                    .attr("r",function(d){return scaleRCircles(d.time)})
+    //                    .attr("cx",function(d){return scaleX3(d.sex)})
+    //            }else{
+    //                plot2.selectAll(".event")
+    //                    .transition()
+    //                    .duration(500)
+    //                    .ease(d3.easeQuadInOut)
+    //                    .attr("r",function(d){return scaleRCircles(d.time)})
+    //                    .attr("cx",width2b/2)
+    //            }
+    //        })
+    //
+    //    }
+    //
+    //    function mouseOver2(d){
+    //        var tooltip = d3.select(".custom-tooltip2");
+    //        tooltip.select("#type").html(d.event);
+    //
+    //        d3.select(".custom-tooltip2")
+    //            .style("left",(scaleX2(d.event)-50)+"px")
+    //            .style("top", 220 +"px")
+    //    }
+    //}
 
 
 }

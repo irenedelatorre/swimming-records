@@ -1,5 +1,5 @@
 //canvas1
-var margin = {t:50,r:50,b:200,l:50};
+var margin = {t:50,r:50,b:200,l:70};
 var width = document.getElementById('sketch1').clientWidth - margin.r - margin.l,
     height = document.getElementById('sketch1').clientHeight - margin.t - margin.b;
 
@@ -46,7 +46,7 @@ swimmerDispatch = d3.dispatch('changeswimmer');
 //d3.csv("data/20161106-swimming-times.csv", parseData, draw1);
 
 var queue = d3_queue.queue()
-    .defer(d3.csv,'data/20161106-swimming-times.csv',parseData)
+    .defer(d3.csv,'data/data.csv',parseData)
     .defer(d3.csv,'data/metadata.csv',parseType)
     .defer(d3.csv,'data/swimmer-metadata.csv',parseSwimmer)
     .await(draw1);
@@ -495,12 +495,16 @@ function draw1 (err, rows, types, swimmers) {
     }
 
     //DRAW COMPETITIONS
+
     drawCompetitions(data);
 
     function drawCompetitions(d){
-        var speed = d3.scaleLinear().domain([min,max]).range([100,2000]),
-            scaleRMiniCircles = d3.scaleLinear().range([1, 100]).domain([0,max]),
-            scaleX2 = d3.scaleBand().rangeRound([0, width2]).domain(events),
+        var speedExtent = d3.extent(d.map(function (d) {return d.speed}));
+
+
+        var speed = d3.scaleLinear().domain([speedExtent]).range([100,2000]),
+            scaleRMiniCircles = d3.scaleSqrt().range([10, 30]).domain(speedExtent),
+            scaleX2 = d3.scaleBand().rangeRound([20, width2]).domain(events),
             speedByTime2 = d3.scaleTime().domain([date1,date2]).range([100,10000]);
 
         plotMiniMenu
@@ -511,7 +515,7 @@ function draw1 (err, rows, types, swimmers) {
             .attr("y2",105)
             .attr("class","axisLine");
 
-        plotMiniMenu.append('g').attr("transform","translate("+(margin2.l)+","+ margin2.t+")").attr('class','competition');
+        plotMiniMenu.append('g').attr("transform","translate("+(margin2.l+20)+","+ margin2.t+")").attr('class','competition');
         plotMiniMenu.append('g').attr("transform","translate("+(margin2.l)+","+ margin2.t+")").attr('class','eventTitle');
 
 
@@ -545,7 +549,8 @@ function draw1 (err, rows, types, swimmers) {
                 return speed((d.time))})
             .ease(d3.easeQuadInOut)
             //.ease(d3.easeLinear)
-            .attr("r",function(d){return scaleRMiniCircles(d.time)});
+            .attr("r",function(d){
+                return scaleRMiniCircles(d.speed)});
 
         function drawEvents (d){
 
@@ -583,40 +588,7 @@ function draw1 (err, rows, types, swimmers) {
                 //.ease(d3.easeQuadInOut)
                 .attr("r",function(d){return scaleRCircles(d.time)})
                 .style("opacity",0.50)
-                .style("stroke-weight","0.5px")
-                //.on("start", function timer(d){
-                //    d3.select("#timer2").html(msToTime(d.time))
-                //})
-
-            //sketchingEvents
-            //    .enter()
-            //    .append("circle")
-            //    .attr("class", function(d){
-            //        return "event"})
-            //    .attr("r",0)
-            //    .style("opacity",0.25)
-            //    .style("stroke",function(d){return scaleColor2(d.sex)})
-            //    .style("stroke-weight","0.5px")
-            //    .style("fill","none")
-            //    .attr("cx",width2b/2)
-            //    .attr("cy",250)
-            //    .transition()
-            //    .duration(function(d){
-            //        return speedSlower((d.time))})
-            //    //.ease(d3.easeLinear)
-            //    .delay(function(d){return speedByTime3(d.date)})
-            //    //.ease(d3.easeQuadInOut)
-            //    .attr("r",function(d){return scaleRCircles(d.time)})
-            //    .style("opacity",0.50)
-            //    .style("stroke-weight","0.5px")
-            //    .transition()
-            //    .duration(50)
-            //    .style("opacity",0.75)
-            //    .style("stroke-weight","4px")
-            //    .transition()
-            //    .duration(500)
-            //    .style("opacity",0.50)
-            //    .style("stroke-weight","0.5px")
+                .style("stroke-weight","0.5px");
 
             //btns
             d3.selectAll('.btn').on('click',function(){
@@ -671,7 +643,8 @@ function parseData(d){
         ranking: +d["Ranking"],
         location: d["Meet location"],
         meet: d["Meet"],
-        when: d["When"]
+        when: d["When"],
+        speed: +d["Distance"]/(+d["Miliseconds"]/1000)
 
     }
 

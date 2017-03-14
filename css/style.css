@@ -44,7 +44,7 @@ h2{
 h3,.event-names{
 	font-size: 10pt;
 	font-weight: 800;
-	color: #799ead;
+	color: #D1D5D7;
 	fill: #D1D5D7;
 	text-transform: uppercase;
 }
@@ -221,8 +221,12 @@ a{
 	font-weight: 600;
 }
 
-.swimmer-list2,.swimmer-list3, #replayViz, #showMen, #showWomen, #showAll, #up{
+.swimmer-list2,.swimmer-list3, #replayViz, #showMen, #showWomen, #showAll, #up, #replay {
 	margin-top: 35px;
+}
+
+#replayViz2{
+	margin-top:0px;
 }
 
 #up{
@@ -259,6 +263,7 @@ a{
 	font-size: 10pt;
 	line-height: 0.8em;
 	fill: #D1D5D7;
+	text-transform: none;
 }
 
 .custom-tooltip2,.custom-tooltip1{
@@ -359,10 +364,7 @@ a{
 }
 
 .swimmers,.event {
-	/*fill: rgb(0, 186, 255);*/
 	mix-blend-mode: screen;
-	/*stroke: rgba(0,186,255,0.5);*/
-	/*stroke-width:0.5px;*/
 }
 
 .axis .tick text, .speedTick,.legendtick {
@@ -445,7 +447,21 @@ a{
 	mix-blend-mode: screen;
 }
 
+/*ALL SWIMMERS*/
+#allSwimmers{
+	margin-top:50px;
+	height: 400px;
+}
+.speed{
+	margin-bottom:50px;
+}
+.speed svg {
+	height: 100px;
+}
 
+.speed canvas {
+	/*height: 300px;*/
+}
 /*footer*/
 
 .modal-footer {

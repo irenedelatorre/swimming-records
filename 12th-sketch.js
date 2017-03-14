@@ -70,7 +70,7 @@ var events = ["50 m freestyle","50 m backstroke","50 m breaststroke","50 m butte
 //d3.csv("data/20161106-swimming-times.csv", parseData, draw1);
 
 var queue = d3_queue.queue()
-    .defer(d3.csv,'data/20161106-swimming-times.csv',parseData)
+    .defer(d3.csv,'data/data.csv',parseData)
     .defer(d3.csv,'data/metadata.csv',parseType)
     .defer(d3.csv,'data/swimmer-metadata.csv',parseSwimmer)
     .await(draw1);
@@ -256,8 +256,8 @@ function draw1 (err, rows, types, swimmers) {
                 .style("fill","rgba(255,255,255,0)")
                 .style("stroke-width","1px")
                 .style("opacity",1)
-                //.attr("cx",function(d,i){return scaleX2Time(d.date)})
-                .attr("cx",function(d,i){return scaleX2(d.event)})
+                .attr("cx",function(d,i){return scaleX2Time(d.date)})
+                //.attr("cx",function(d,i){return scaleX2(d.event)})
                 .attr("cy",100)
                 .on("mouseover",mouseOverMiniMenu)
                 .on("mousemove",mouseOverMiniMenu)
@@ -546,6 +546,8 @@ function draw1 (err, rows, types, swimmers) {
                 //btns
                 d3.selectAll('.oneEventBtn').on('click',function(d){
                     var type = d3.select(this).select();
+
+                    console.log("hello")
 
                     if (type=="sex"){
                         d3.select("#sex").html("Combine genders")

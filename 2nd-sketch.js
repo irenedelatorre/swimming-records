@@ -27,7 +27,7 @@ var example = Sketch.create({ container: document.body });
 
 example.setup = function () {
 
-    d3.csv("data/20161015 swimming-times2.csv", parseData, draw2);
+    d3.csv("../data/20161015 swimming-times2.csv", parseData, draw2);
 
     function draw2 (err, rows){
 

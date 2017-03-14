@@ -70,15 +70,16 @@ var events = ["50 m freestyle","50 m backstroke","50 m breaststroke","50 m butte
 //d3.csv("data/20161106-swimming-times.csv", parseData, draw1);
 
 var queue = d3_queue.queue()
-    .defer(d3.csv,'data/20161106-swimming-times.csv',parseData)
+    .defer(d3.csv,'data/data.csv',parseData)
     .defer(d3.csv,'data/metadata.csv',parseType)
     .defer(d3.csv,'data/swimmer-metadata.csv',parseSwimmer)
     .await(draw1);
 
 function draw1 (err, rows, types, swimmers) {
 
-    d3.select("#speedViz").on("click",showSpeedViz);
-    d3.select("#analyticalViz").on("click",showAnalyticalViz);
+    //
+    //d3.select("#speedViz").on("click",showSpeedViz);
+    //d3.select("#analyticalViz").on("click",showAnalyticalViz);
 
     d3.select(".type-list").on("change", function () {typeDispatch.call("changeviz", this, this.value);});
     d3.select(".swimmer-list").on("change", function () {swimmerDispatch.call("changeswimmer", this, this.value);});
@@ -105,28 +106,30 @@ function draw1 (err, rows, types, swimmers) {
     var speed = d3.scaleLinear().domain([min,max]).range([50000,max/3]);
     var speedByTime = d3.scaleTime().domain([date1,date2]).range([100,30000]);
 
+    showSpeedViz(data);
+
     function showSpeedViz(){
 
-        d3.select(".explCompetitions").remove();
-        d3.select(".axis-xCompetitions").remove();
-        d3.select(".competition").remove();
-        d3.select(".axis-xDots").remove();
-        d3.select(".oneEvent").remove();
-
-        d3.select("#analyticalVisualization").classed("container-heightAnalytical",false);
-        d3.select("#analyticalVisualization").style("overflow","hidden");
-
-
-        $("html, body").animate({
-            scrollTop: ($("#speedVisualization").offset().top)
-        }, 500);
-
-        d3.select("#speedVisualization").style("overflow","inherit");
-        d3.select("#speedVisualization").classed("container-heightSpeed",true);
-
-        d3.select(".dots").remove();
-        d3.select(".axis-yDots").remove();
-        d3.select(".axis-xDots").remove();
+        //d3.select(".explCompetitions").remove();
+        //d3.select(".axis-xCompetitions").remove();
+        //d3.select(".competition").remove();
+        //d3.select(".axis-xDots").remove();
+        //d3.select(".oneEvent").remove();
+        //
+        //d3.select("#analyticalVisualization").classed("container-heightAnalytical",false);
+        //d3.select("#analyticalVisualization").style("overflow","hidden");
+        //
+        ////
+        ////$("html, body").animate({
+        ////    scrollTop: ($("#speedVisualization").offset().top)
+        ////}, 500);
+        //
+        //d3.select("#speedVisualization").style("overflow","inherit");
+        //d3.select("#speedVisualization").classed("container-heightSpeed",true);
+        //
+        //d3.select(".dots").remove();
+        //d3.select(".axis-yDots").remove();
+        //d3.select(".axis-xDots").remove();
 
         //DRAW COMPETITIONS
         drawCompetitions(data);
@@ -618,28 +621,29 @@ function draw1 (err, rows, types, swimmers) {
         }
     }
 
+    showAnalyticalViz(data);
     function showAnalyticalViz(){
 
-        d3.select(".dots").remove();
-        d3.select(".axis-yDots").remove();
-        d3.select(".axis-xDots").remove();
-        d3.select(".expl2").remove();
+        //d3.select(".dots").remove();
+        //d3.select(".axis-yDots").remove();
+        //d3.select(".axis-xDots").remove();
+        //d3.select(".expl2").remove();
+        //
+        //
+        //d3.select("#speedVisualization").classed("container-heightSpeed",false);
+        //d3.select("#speedVisualization").style("overflow","hidden");
 
+        //$("html, body").animate({
+        //    scrollTop: ($("#analyticalVisualization").offset().top)
+        //}, 500);
 
-        d3.select("#speedVisualization").classed("container-heightSpeed",false);
-        d3.select("#speedVisualization").style("overflow","hidden");
-
-        $("html, body").animate({
-            scrollTop: ($("#analyticalVisualization").offset().top)
-        }, 500);
-
-        d3.select("#analyticalVisualization").style("overflow","inherit");
-        d3.select("#analyticalVisualization").classed("container-heightAnalytical",true);
-
-        d3.select(".explCompetitions").remove();
-        d3.select(".axis-xCompetitions").remove();
-        d3.select(".competition").remove();
-        d3.select(".oneEvent").remove();
+        //d3.select("#analyticalVisualization").style("overflow","inherit");
+        //d3.select("#analyticalVisualization").classed("container-heightAnalytical",true);
+        //
+        //d3.select(".explCompetitions").remove();
+        //d3.select(".axis-xCompetitions").remove();
+        //d3.select(".competition").remove();
+        //d3.select(".oneEvent").remove();
 
         //LEGEND
         expl2.append('g').attr("transform","translate("+(margin2.l)+","+ (margin2.t)+")").attr('class','expl2');

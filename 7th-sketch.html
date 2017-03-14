@@ -4,8 +4,9 @@
 		<meta charset="utf-8">
 		<title>Sketches</title>
 		<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,600,700,700i,800,900" rel="stylesheet">
-		<link href="../bootstrap.min.css" rel="stylesheet"/>
-		<link href="../style.css" rel="stylesheet"/>
+		<link href="bootstrap.min.css" rel="stylesheet"/>
+		<link href="css/style.css" rel="stylesheet"/>
+		<link href="old-style.css" rel="stylesheet"/>
 	</head>
 	<body>
 		<div class="container">
@@ -30,7 +31,7 @@
 			</div>
 			<div class="canvas" id="sketch1">
 				<div class="timer">
-					<p class="clock" id="timer"></p>
+					<p class="clock-old" id="timer"></p>
 				</div>
 				<div class="custom-tooltip custom-tooltip1">
 					<p class="legend">Swimmer: <span class="date" id="swimmer"></span></p>
@@ -40,37 +41,38 @@
 
 				</div>
 			</div>
-            <h2>Events exploration</h2>
-            <p>Explore the data by selecting an specific competition</p>
-            <div class="canvas" id="sketch2">
-				<div id="miniMenu"></div>
-				<div class="custom-tooltip2">
-					<p class="legend"><span id="type"></span></p>
-				</div>
-				<p id="eventTitle"> </p>
-				<a class="btn btn-default year" id="sex">Separate records by sex</a>
-				<a class="btn btn-default year" id="together">Cluster records</a>
-				<div class="timer">
-					<p class="clock" id="timer2"></p>
-				</div>
 
-				<!--<div id="eventSketch" ></div>-->
-            </div>
 		</div><!--.container-->
+<div class="container-fluid">
+	<h2>Events exploration</h2>
+	<p>Explore the data by selecting an specific competition</p>
+	<div class="canvas" id="sketch2">
+		<div id="miniMenu"></div>
+		<div class="custom-tooltip2">
+			<p class="legend"><span id="type"></span></p>
+		</div>
+		<p id="eventTitle"> </p>
+		<a class="btn btn-default year" id="sex">Separate records by sex</a>
+		<a class="btn btn-default year" id="together">Cluster records</a>
+		<div class="timer">
+			<p class="clock" id="timer2"></p>
+		</div>
 
+		<!--<div id="eventSketch" ></div>-->
+	</div>
+</div>
 
 		<!-- Scripts -->
 		<script src="https://d3js.org/d3.v4.min.js"></script>
-		<script src="../lib/crossfilter/crossfilter.js"></script>
+		<script src="lib/crossfilter/crossfilter.js"></script>
 		<script src="https://d3js.org/d3-queue.v2.min.js"></script>
 		<!--<script src="lib/textures.js"></script>-->
-		<script src="../lib/physics.js"></script>
-		<script src="../lib/sketch.min.js"></script>
-		<script src="../records.js"></script>
-		<!--<script src="script5.js"></script>-->
-		<script src="script8.js"></script>
-
+		<script src="lib/physics.js"></script>
+		<script src="lib/sketch.min.js"></script>
+		<script src="records.js"></script>
+		<!--<script src="7th-sketch.js"></script>-->
+		<script src="7th-2sketch.js"></script>
 		<!--<script src="lib/p5/p5.dom.js"></script>-->
-		<script src="../lib/p5/p5.js"></script>
+		<script src="lib/p5/p5.js"></script>
 	</body>
 </html>

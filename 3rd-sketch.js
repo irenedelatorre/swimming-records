@@ -12,7 +12,7 @@ function setup() {
         height = document.getElementById('sketch3').clientHeight - margin.t - margin.b;
 
     var myCanvas = createCanvas(width, height/2);
-    background("#023e69");
+    background("#192F38");
 
     myCanvas.parent('sketch3');
     t = 0;
@@ -25,7 +25,7 @@ function draw() {
     var width = document.getElementById('sketch3').clientWidth - margin.r - margin.l,
         height = (document.getElementById('sketch3').clientHeight - margin.t - margin.b)/2;
 
-    var data = d3.csv("data/20161015 swimming-times2.csv", parseData, draw2);
+    var data = d3.csv("data/data.csv", parseData, draw2);
 
     function draw2 (data){
         var formatDate = d3.timeFormat("%b-%y");

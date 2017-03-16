@@ -19,7 +19,16 @@ var requestAnimationFrame = window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.msRequestAnimationFrame;
 
+window.cancelRequestAnimFrame = ( function() {
+    return window.cancelAnimationFrame          ||
+        window.webkitCancelRequestAnimationFrame    ||
+        window.mozCancelRequestAnimationFrame       ||
+        window.oCancelRequestAnimationFrame     ||
+        window.msCancelRequestAnimationFrame        ||
+        clearTimeout
+} )();
 
+var myReq;
 var date1 = new Date(1900,1,1);
 var date2 = new Date(2016,10,31);
 
@@ -33,7 +42,7 @@ var formatDate = d3.timeFormat("%B %d, %Y"),
     scaleColor = d3.scaleOrdinal().domain(["Female","Male"]).range(["#AD1BEA","#0CA3B9"]),
     mySize = 2,
     startingPoint = 40,
-    endPoint = width - 1.5*width/5;
+    endPoint = width-10;
     topPoint = 50,
     scaleX = d3.scaleLinear().range([startingPoint, endPoint]),
     scaleY = d3.scaleTime().range([topPoint,height-10]);
@@ -359,6 +368,14 @@ function draw (err, rows, types, swimmers) {
 
     //highlight a swimmer
     swimmerDispatch2.on("selectswimmer2", function(swimmer,i) {
+
+        for (var i = 1; i < 99999; i++) {
+            window.clearInterval(i);
+            window.cancelRequestAnimFrame(i);
+        }
+
+       requestAnimationFrame(drawSwimmers);
+
         d3.select("#eventPlot").selectAll("canvas").remove();
         d3.select("#eventPlot").selectAll("div").remove();
 

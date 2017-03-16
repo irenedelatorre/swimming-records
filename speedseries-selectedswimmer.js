@@ -34,6 +34,7 @@ d3.speedSeriesASwimmer = function(){
     }
 
     function draw (data){
+
         var distanceTitle = d3.extent(data.map(function (d) {return d.event}));
         var speedRange = d3.extent(data.map(function (d) {return d.speed}));
 
@@ -116,7 +117,7 @@ d3.speedSeriesASwimmer = function(){
 
         drawOneEvent();
 
-        requestAnimationFrame(drawOneEvent);
+        //var myReq = requestAnimationFrame(drawOneEvent);
 
         function drawOneEvent(){
 
@@ -428,8 +429,6 @@ d3.speedSeriesASwimmer = function(){
                     swimmer.xPosChart = chartEndPoint;
                 }
 
-
-
                 if (id == swimmer.name){
                     console.log(id);
                     ctxChart2.beginPath();
@@ -457,7 +456,9 @@ d3.speedSeriesASwimmer = function(){
 
 
             }
-            requestAnimationFrame(drawOneEvent);
+
+            myReq = requestAnimationFrame(drawOneEvent);
+
         }
 
 

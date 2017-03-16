@@ -32,10 +32,10 @@ var formatDate = d3.timeFormat("%B %d, %Y"),
     formatSpeed = d3.format(".2f"),
     scaleColor = d3.scaleOrdinal().domain(["Female","Male"]).range(["#AD1BEA","#0CA3B9"]),
     mySize = 2,
-    startingPoint = 30,
-    endPoint = width - 500;
+    startingPoint = 40,
+    endPoint = width - 1.5*width/5;
     topPoint = 50,
-    scaleX = d3.scaleLinear().range([10, endPoint]),
+    scaleX = d3.scaleLinear().range([startingPoint, endPoint]),
     scaleY = d3.scaleTime().range([topPoint,height-10]);
 
 
@@ -79,6 +79,8 @@ function draw (err, rows, types, swimmers) {
     var speedScale = d3.scaleLinear().domain(speedExtent).range([1,4]);
     var dateExtent = d3.extent(data.map(function (d) {return d.date}));
 
+    console.log(speedExtent)
+
     //y = always, speed dif. depending on TIME
     scaleY = scaleY.domain(dateExtent);
 
@@ -98,33 +100,39 @@ function draw (err, rows, types, swimmers) {
     requestAnimationFrame(drawSwimmers);
 
     function drawSwimmers (){
-
         //ctx.clearRect(0, 0, width, height);
         ctx.globalCompositeOperation = 'normal';
         ctx.fillStyle = "#192F38";
         ctx.fillRect(0,0,width,height);
 
         //Y axis
-        var years = [date1,new Date(1925,1,1),new Date(1950,1,1),new Date(1975,1,1),new Date(2000,1,1),date2];
-console.log(years)
+        var years = [date1,new Date(1920,1,1),new Date(1940,1,1),new Date(1960,1,1),new Date(1980,1,1),new Date(2000,1,1),date2];
         years.forEach(function(d){
             ctx.beginPath();
             ctx.textAlign = "left";
             ctx.fillStyle ="#758288";
             ctx.font ="13px Raleway Medium";
+            ctx.textBaseline = "middle";
             ctx.fillText(formatYear(d),0,scaleY(d));
+            ctx.fillStyle = "none";
+            ctx.strokeStyle = "#475960";
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 2]);
+            ctx.moveTo(startingPoint-5,scaleY(d));
+            ctx.lineTo(endPoint+mySize+5,scaleY(d));
+            ctx.stroke();
         });
 
         ctx.beginPath();
-        ctx.textAlign = "left";
+        ctx.textAlign = "center";
         ctx.fillStyle ="#758288";
         ctx.font ="13px Raleway Medium";
-        ctx.fillText("Starting point: 0 meters",startingPoint,topPoint-35);
-        ctx.textAlign = "right";
-        ctx.fillText("End point: 50 meters",(endPoint+mySize+1),topPoint-35);
+        ctx.fillText("Start",startingPoint,topPoint-35);
+        ctx.fillText("End",(endPoint+mySize+1),topPoint-35);
         ctx.fillStyle = "none";
         ctx.strokeStyle = "#475960";
         ctx.lineWidth = 1;
+        ctx.setLineDash([0, 0]);
         ctx.moveTo(startingPoint,height);
         ctx.lineTo(startingPoint,(topPoint-20));
         ctx.stroke();
@@ -156,6 +164,144 @@ console.log(years)
 
         requestAnimationFrame(drawSwimmers);
     }
+
+    //highlight a swimmer
+    swimmerDispatch.on("selectswimmer", function(swimmerName,i) {
+
+        if (swimmerName == "All swimmers") {
+            d3.select("#allSwimmers").selectAll("canvas").remove();
+
+            data.forEach(function(d){
+                d.xPos = startingPoint;
+            });
+
+            var canvasAllSwimmers = d3.select('#allSwimmers')
+                    .append('canvas')
+                    .attr('width',width)
+                    .attr('height',height)
+                    .node(),
+                ctx = canvasAllSwimmers.getContext("2d");
+
+            drawSwimmers()
+        } else {
+            d3.select("#allSwimmers").selectAll("canvas").remove();
+
+            data.forEach(function(d){
+                d.xPos = startingPoint;
+            });
+
+            var canvasOneSwimmers = d3.select('#allSwimmers')
+                    .append('canvas')
+                    .attr('width',width)
+                    .attr('height',height)
+                    .node(),
+                ctx = canvasOneSwimmers.getContext("2d");
+
+            drawSwimmerSelected();
+
+            function drawSwimmerSelected (){
+                ctx.globalCompositeOperation = 'normal';
+                ctx.fillStyle = "#192F38";
+                ctx.fillRect(0,0,width,height);
+
+                //Y axis
+                var years = [date1,new Date(1920,1,1),new Date(1940,1,1),new Date(1960,1,1),new Date(1980,1,1),new Date(2000,1,1),date2];
+                years.forEach(function(d){
+                    ctx.beginPath();
+                    ctx.textAlign = "left";
+                    ctx.fillStyle ="#758288";
+                    ctx.font ="13px Raleway Medium";
+                    ctx.textBaseline = "middle";
+                    ctx.fillText(formatYear(d),0,scaleY(d));
+                    ctx.fillStyle = "none";
+                    ctx.strokeStyle = "#475960";
+                    ctx.lineWidth = 1;
+                    ctx.setLineDash([4, 2]);
+                    ctx.moveTo(startingPoint-5,scaleY(d));
+                    ctx.lineTo(endPoint+mySize+5,scaleY(d));
+                    ctx.stroke();
+                });
+
+                ctx.beginPath();
+                ctx.textAlign = "center";
+                ctx.fillStyle ="#758288";
+                ctx.font ="13px Raleway Medium";
+                ctx.fillText("Start",startingPoint,topPoint-35);
+                ctx.fillText("End",(endPoint+mySize+1),topPoint-35);
+                ctx.fillStyle = "none";
+                ctx.strokeStyle = "#475960";
+                ctx.lineWidth = 1;
+                ctx.setLineDash([0, 0]);
+                ctx.moveTo(startingPoint,height);
+                ctx.lineTo(startingPoint,(topPoint-20));
+                ctx.stroke();
+                ctx.moveTo((endPoint+mySize+1),height);
+                ctx.lineTo((endPoint+mySize+1),(topPoint-20));
+                ctx.stroke();
+
+                ctx.globalCompositeOperation = 'screen';
+                //Loop over the dataset and draw each circle to the canvas
+                for (var i = 0; i < data.length; i++) {
+                    var swimmer = data[i];
+
+                    var mySpeed = 20*(swimmer.speed*50)/endPoint;
+
+                    if (swimmer.xPos>0 && swimmer.xPos<endPoint+1){
+                        swimmer.xPos = swimmer.xPos + mySpeed;
+                    }else{
+                        swimmer.xPos = endPoint;
+                    }
+
+                    if (swimmerName==swimmer.name){
+                        ////Draw each circle
+                        ctx.beginPath();
+                        ctx.fillStyle = "none";
+                        ctx.lineWidth = "1pt";
+                        ctx.globalCompositeOperation = 'screen';
+                        ctx.globalAlpha = 0.1;
+                        ctx.strokeStyle = scaleColor(swimmer.sex);
+                        ctx.setLineDash([0, 0]);
+                        ctx.moveTo(startingPoint-5,scaleY(swimmer.date));
+                        ctx.lineTo(endPoint+mySize+5,scaleY(swimmer.date));
+                        ctx.moveTo(startingPoint-5,scaleY(swimmer.date));
+                        ctx.lineTo(endPoint+mySize+5,scaleY(swimmer.date));
+                        ctx.stroke();
+                        ctx.strokeStyle = "none";
+                        ctx.globalCompositeOperation = 'normal';
+                        ctx.globalAlpha = 1;
+                        ctx.closePath();
+
+                        ctx.beginPath();
+                        ctx.globalCompositeOperation = 'screen';
+                        ctx.globalAlpha = 1;
+                        ctx.fillStyle = scaleColor(swimmer.sex);
+                        ctx.arc(swimmer.xPos, swimmer.yPos +noise.simplex2(swimmer.xPos/10, swimmer.yPos)*mySpeed-mySpeed*2, mySize, 0,  2 * Math.PI);
+                        ctx.fill();
+                        ctx.globalCompositeOperation = 'normal';
+                        ctx.globalAlpha = 1;
+                        ctx.closePath();
+
+
+                    }if (swimmerName != swimmer.name){
+                        ////Draw each circle
+                        ctx.beginPath();
+                        ctx.globalCompositeOperation = 'screen';
+                        ctx.globalAlpha = 0.1;
+                        ctx.fillStyle = scaleColor(swimmer.sex);
+                        ctx.arc(swimmer.xPos, swimmer.yPos +noise.simplex2(swimmer.xPos/10, swimmer.yPos)*mySpeed-mySpeed*2, 1, 0,  2 * Math.PI);
+                        ctx.fill();
+                        ctx.globalCompositeOperation = 'normal';
+                        ctx.globalAlpha = 1;
+                        ctx.closePath();
+                    }
+
+
+                }
+
+                requestAnimationFrame(drawSwimmerSelected);
+            }
+        }
+    });
 
 
 
@@ -267,13 +413,20 @@ console.log(years)
     });
 
     d3.select('#replay').on('click',function(){
-        smallMultiplesNormal()
-        d3.select("#replay").classed("showActive",true);
-        //d3.select("#showWomen").classed("showActive",false);
-        //d3.select("#showAll").classed("showActive",false);
-
+        smallMultiplesNormal();
+    });
+    d3.select('#replayViz2').on('click',function(){
+        data.forEach(function(d){
+            d.xPos = startingPoint;
+        });
+        drawSwimmers();
     });
 
+    d3.select('#up').on('click',function(){
+        $("html, body").animate({
+            scrollTop: ($("#body").offset().top)
+        }, 500);
+    });
 
 
 

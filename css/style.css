@@ -58,7 +58,20 @@ a{
 	font-weight: 400;
 	font-size: 0.9em;
 	color: #799ead;
+	margin-left: -15px !important;
+}
+a .header {
+	margin-left: -15px !important;
+}
 
+.header:hover,
+.header.active,
+.header:active,
+.header.focus,
+.header:focus {
+	color: #D1D5D7;
+	text-decoration: none;
+	font-weight: 500;
 }
 
 .container .section{
@@ -136,6 +149,7 @@ a{
 	color: #758288;
 	border: 1px solid #758288;
 	padding: 7px 12px;
+	margin-right: 20px;
 }
 .speedOptions .btn-default{
 	margin-right: 30px;

@@ -14,9 +14,9 @@
 <div class="firstPart">
     <div class="container">
         <div class="col-md-12">
-            <p class="row header">Swimming World Records throughout History</p>
+            <a class="header" href="index.html">Swimming World Records throughout History</a>
             <h1 class="row">Swimming records: a competition of speeds</h1>
-            <a class="btn row btn-default"  id="swimmersViz" href="speed-ranges.html">Ranges of speed</a>
+            <a class="btn row btn-default"  id="swimmersViz" href="speed-ranges.html">Speed improvements</a>
             <a class="btn row btn-default" id="analyticalViz" href="analytical.html">Analytical visualization</a>
         </div>
     </div>
@@ -25,7 +25,7 @@
 <div id="speedVisualization">
     <div class="container-fluid" id="speedVizbeginning">
         <div class="canvas col-md-12">
-            <h2 class="">All records</h2>
+            <h2 class="row">All records</h2>
             <div class="control-module drop-down col-md-2">
                 <div class="select">
                     <select class="form-control swimmer-list" id="swimmerNames">
@@ -49,8 +49,8 @@
         <div class="col-md-12 canvas" id="speedPlot">
             <h2 class="row">Records per stroke and distance</h2>
             <p class="row">Average speeds of records broken from 1900 to 2016, by swimming modality</p>
-            <img class="row legendIMG" src="legend-speed3.svg"/>
             <div class="navSpeedEvent row">
+                <img class="row legendIMG" src="legend-speed3.svg"/>
                 <div class="control-module drop-down col-md-3">
                     <div class="select">
                         <select class="form-control swimmer-list2" id="swimmerNames3">
@@ -58,6 +58,7 @@
                     </div>
                 </div>
                 <a class="btn btn-default"  id="replay">Replay</a>
+                <a class="btn btn-default"  id="up">Up</a>
             </div>
         </div>
         <div id="eventPlot" class="eventPlot"></div>
@@ -88,7 +89,7 @@
 <script src="lib/perlin.js"></script>
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.js"></script>-->
-<!--<script src="scroll-speed.js"></script>-->
+<script src="scroll-speed.js"></script>
 <script src="speedseries-selectedswimmer.js"></script>
 <script src="speedseries.js"></script>
 <script src="swimmers-speeds2.js"></script>

@@ -46,9 +46,9 @@ swimmerDispatch = d3.dispatch('changeswimmer');
 //d3.csv("data/20161106-swimming-times.csv", parseData, draw1);
 
 var queue = d3_queue.queue()
-    .defer(d3.csv,'../data/20161106-swimming-times.csv',parseData)
-    .defer(d3.csv,'../data/metadata.csv',parseType)
-    .defer(d3.csv,'../data/swimmer-metadata.csv',parseSwimmer)
+    .defer(d3.csv,'data/data.csv',parseData)
+    .defer(d3.csv,'data/metadata.csv',parseType)
+    .defer(d3.csv,'data/swimmer-metadata.csv',parseSwimmer)
     .await(draw1);
 
 var n = 1;

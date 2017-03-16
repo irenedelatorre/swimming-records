@@ -76,6 +76,7 @@ var queue = d3_queue.queue()
     .await(draw1);
 
 function draw1 (err, rows, types, swimmers) {
+    console.log(rows);
 
     d3.select("#speedViz").on("click",showSpeedViz);
     d3.select("#analyticalViz").on("click",showAnalyticalViz);
@@ -105,6 +106,9 @@ function draw1 (err, rows, types, swimmers) {
     var speed = d3.scaleLinear().domain([min,max]).range([50000,max/3]);
     var speedByTime = d3.scaleTime().domain([date1,date2]).range([100,30000]);
 
+    //showAnalyticalViz()
+    showSpeedViz()
+
     function showSpeedViz(){
 
         d3.select(".explCompetitions").remove();
@@ -115,11 +119,6 @@ function draw1 (err, rows, types, swimmers) {
 
         d3.select("#analyticalVisualization").classed("container-heightAnalytical",false);
         d3.select("#analyticalVisualization").style("overflow","hidden");
-
-
-        $("html, body").animate({
-            scrollTop: ($("#speedVisualization").offset().top)
-        }, 500);
 
         d3.select("#speedVisualization").style("overflow","inherit");
         d3.select("#speedVisualization").classed("container-heightSpeed",true);
@@ -299,8 +298,8 @@ function draw1 (err, rows, types, swimmers) {
             //btns
             d3.selectAll('.clustering').on('click',function(){
 
-                var form = document.getElementById("swimmerNames");
-                form.selectedIndex=0;
+                //var form = document.getElementById("swimmerNames");
+                //form.selectedIndex=0;
 
                 var type = d3.select(this).attr('id');
                 if (type=="date1"){
@@ -330,8 +329,8 @@ function draw1 (err, rows, types, swimmers) {
 
 
                 }if (type=="competition"){
-                    var form = document.getElementById("swimmerNames");
-                    form.selectedIndex=0;
+                    //var form = document.getElementById("swimmerNames");
+                    //form.selectedIndex=0;
 
 
                     scaleX2.padding([25])

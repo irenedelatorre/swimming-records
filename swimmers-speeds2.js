@@ -51,6 +51,8 @@ var formatDate = d3.timeFormat("%B %d, %Y"),
 swimmerDispatch = d3.dispatch('selectswimmer');
 swimmerDispatch2 = d3.dispatch('selectswimmer2');
 
+var typeOfMultiple;
+
 var btnControl;
 var btnControl2;
 
@@ -106,9 +108,10 @@ function draw (err, rows, types, swimmers) {
     //var xPos = 0;
     var mySpeed = "";
 
-    requestAnimationFrame(drawSwimmers);
+    drawSwimmers();
 
     function drawSwimmers (){
+
         //ctx.clearRect(0, 0, width, height);
         ctx.globalCompositeOperation = 'normal';
         ctx.fillStyle = "#192F38";
@@ -148,6 +151,7 @@ function draw (err, rows, types, swimmers) {
         ctx.moveTo((endPoint+mySize+1),height);
         ctx.lineTo((endPoint+mySize+1),(topPoint-20));
         ctx.stroke();
+        ctx.closePath();
 
         ctx.globalCompositeOperation = 'screen';
         //Loop over the dataset and draw each circle to the canvas
@@ -176,35 +180,20 @@ function draw (err, rows, types, swimmers) {
 
     //highlight a swimmer
     swimmerDispatch.on("selectswimmer", function(swimmerName,i) {
-
+        
         if (swimmerName == "All swimmers") {
-            d3.select("#allSwimmers").selectAll("canvas").remove();
 
             data.forEach(function(d){
                 d.xPos = startingPoint;
             });
 
-            var canvasAllSwimmers = d3.select('#allSwimmers')
-                    .append('canvas')
-                    .attr('width',width)
-                    .attr('height',height)
-                    .node(),
-                ctx = canvasAllSwimmers.getContext("2d");
+            drawSwimmers();
 
-            drawSwimmers()
-        } else {
-            d3.select("#allSwimmers").selectAll("canvas").remove();
+        } if (swimmerName!="All swimmers") {
 
             data.forEach(function(d){
                 d.xPos = startingPoint;
             });
-
-            var canvasOneSwimmers = d3.select('#allSwimmers')
-                    .append('canvas')
-                    .attr('width',width)
-                    .attr('height',height)
-                    .node(),
-                ctx = canvasOneSwimmers.getContext("2d");
 
             drawSwimmerSelected();
 
@@ -229,6 +218,7 @@ function draw (err, rows, types, swimmers) {
                     ctx.moveTo(startingPoint-5,scaleY(d));
                     ctx.lineTo(endPoint+mySize+5,scaleY(d));
                     ctx.stroke();
+                    ctx.closePath();
                 });
 
                 ctx.beginPath();
@@ -247,6 +237,7 @@ function draw (err, rows, types, swimmers) {
                 ctx.moveTo((endPoint+mySize+1),height);
                 ctx.lineTo((endPoint+mySize+1),(topPoint-20));
                 ctx.stroke();
+                ctx.closePath();
 
                 ctx.globalCompositeOperation = 'screen';
                 //Loop over the dataset and draw each circle to the canvas
@@ -317,6 +308,8 @@ function draw (err, rows, types, swimmers) {
     smallMultiplesNormal ();
 
     function smallMultiplesNormal (){
+        typeOfMultiple = "normal";
+
         d3.select("#eventPlot").selectAll("canvas").remove();
         d3.select("#eventPlot").selectAll("div").remove();
 
@@ -380,9 +373,10 @@ function draw (err, rows, types, swimmers) {
         d3.select("#eventPlot").selectAll("div").remove();
 
         if (swimmer == "All swimmers") {
+            typeOfMultiple = "normal";
             drawMultiples = smallMultiplesNormal;
         } else {
-
+            typeOfMultiple = "selection";
             //small events
             var nestedEvents = d3.nest()
                 .key(function (d) {
@@ -432,10 +426,12 @@ function draw (err, rows, types, swimmers) {
     d3.select('#replay').on('click',function(){
         smallMultiplesNormal();
     });
+
     d3.select('#replayViz2').on('click',function(){
         data.forEach(function(d){
             d.xPos = startingPoint;
         });
+
         drawSwimmers();
     });
 

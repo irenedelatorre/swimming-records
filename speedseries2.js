@@ -111,15 +111,6 @@ d3.speedSeries = function(){
             ctxChart.fillText("First and last records",(chartEndPoint+mySize+10),chartTopPoint-35);
             //ctxChart.closePath();
 
-
-            //first and last records per men and women
-            //console.log(nestBySex[0].values[0].date);
-            //ctxChart.textAlign = "left";
-            //ctxChart.fillStyle = scaleColor("Male");
-            //ctxChart.font ="8pt Raleway Medium";
-            //ctxChart.fillText(formatYear(nestBySex[0].values[0].date),0,scaleYEvent(data[0].date)-2);
-            //ctxChart.fillText(formatYear(nestBySex[0].values[nestBySex[0].values.length-1].date),0,scaleYEvent(data[numberRecords-1].date)-2);
-
             ctxChart.textAlign = "left";
             ctxChart.fillStyle = "#758288";
             ctxChart.font ="8pt Raleway Medium";

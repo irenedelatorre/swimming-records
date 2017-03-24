@@ -201,6 +201,12 @@ a .header {
 	width: 450px;
 	float: left;
 }
+.legendIMG2{
+	margin-top: 10px;
+	margin-right: 40px;
+	height: 118px;
+	float: left;
+}
 
 .toggle{
 	width: 90px;
@@ -235,12 +241,8 @@ a .header {
 	font-weight: 600;
 }
 
-.swimmer-list2,.swimmer-list3, #replayViz, #showMen, #showWomen, #showAll, #up, #replay {
+.swimmer-list2,.swimmer-list3, #replayViz, #showMen, #showWomen, #showAll, #up, #replay, #swimmerNames, #replayViz2 {
 	margin-top: 35px;
-}
-
-#replayViz2{
-	margin-top:0px;
 }
 
 #up{
@@ -293,12 +295,22 @@ a .header {
 .custom-tooltip3 {
 	white-space: nowrap;
 	position: absolute;
-	font-size: 14px;
+	font-size: 10pt;
 	font-weight: 400;
 	color: #758288;
 	opacity:0;
 }
 
+.custom-tooltip-swimmers{
+	position:absolute;
+	font-size: 10pt;
+	font-weight: 500;
+	color: #758288;
+	background-color: rgba(18, 33, 39, 0.8);
+	white-space: nowrap;
+	padding: 12px;
+	display:none;
+}
 
 /*Speed visualization*/
 

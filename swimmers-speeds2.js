@@ -3,12 +3,16 @@ var margin = {t:5,r:0,b:5,l:0};
 var width = d3.select('#allSwimmers').node().clientWidth - margin.r - margin.l,
     height = d3.select('#allSwimmers').node().clientHeight - margin.t - margin.b;
 
+
 var canvasAllSwimmers = d3.select('#allSwimmers')
     .append('canvas')
+    .attr("id","allrecordsViz")
     .attr('width',width)
     .attr('height',height)
     .node(),
     ctx = canvasAllSwimmers.getContext("2d");
+
+var canvasALL = document.getElementById("allrecordsViz");
 
 
 var widthb = d3.select('#eventPlot').node().clientWidth - margin.r - margin.l,
@@ -42,7 +46,7 @@ var formatDate = d3.timeFormat("%B %d, %Y"),
     scaleColor = d3.scaleOrdinal().domain(["Female","Male"]).range(["#AD1BEA","#0CA3B9"]),
     mySize = 2,
     startingPoint = 40,
-    endPoint = width-10;
+    endPoint = width-50;
     topPoint = 50,
     scaleX = d3.scaleLinear().range([startingPoint, endPoint]),
     scaleY = d3.scaleTime().range([topPoint,height-10]);
@@ -55,7 +59,7 @@ var typeOfMultiple;
 
 var btnControl;
 var btnControl2;
-
+var tooltip = null;
 //var drawMultiples = null;
 
 var events = ["50 m freestyle","50 m backstroke","50 m breaststroke","50 m butterfly","100 m freestyle","100 m backstroke","100 m breaststroke","100 m butterfly","200 m freestyle","200 m backstroke","200 m breaststroke","200 m butterfly","200 m individual medley","400 m freestyle","400 m individual medley","800 m freestyle","1500 m freestyle","4 x 100 m freestyle relay","4 x 100 m medley relay","4 x 200 m freestyle relay"]
@@ -97,11 +101,13 @@ function draw (err, rows, types, swimmers) {
 
     scaleX = scaleX.domain([0,50]);
 
-    data.forEach(function(d){
+    data.forEach(function(d,i){
         d.xPos = startingPoint;
         d.yPos = scaleY(d.date);
-
     });
+
+    data.sort(function(a,b){return b.speed - a.speed});
+    console.log(data);
 
     //drawSwimmers ();
 
@@ -111,7 +117,6 @@ function draw (err, rows, types, swimmers) {
     drawSwimmers();
 
     function drawSwimmers (){
-
         //ctx.clearRect(0, 0, width, height);
         ctx.globalCompositeOperation = 'normal';
         ctx.fillStyle = "#192F38";
@@ -139,8 +144,8 @@ function draw (err, rows, types, swimmers) {
         ctx.textAlign = "center";
         ctx.fillStyle ="#758288";
         ctx.font ="13px Raleway Medium";
-        ctx.fillText("Start",startingPoint,topPoint-35);
-        ctx.fillText("End",(endPoint+mySize+1),topPoint-35);
+        ctx.fillText("Start (0 m)",startingPoint,topPoint-35);
+        ctx.fillText("End (50 m)",(endPoint+mySize+1),topPoint-35);
         ctx.fillStyle = "none";
         ctx.strokeStyle = "#475960";
         ctx.lineWidth = 1;
@@ -153,34 +158,77 @@ function draw (err, rows, types, swimmers) {
         ctx.stroke();
         ctx.closePath();
 
+        var myYPOS;
+        var size;
+
         ctx.globalCompositeOperation = 'screen';
+
         //Loop over the dataset and draw each circle to the canvas
         for (var i = 0; i < data.length; i++) {
             var swimmer = data[i];
-
+            var aleatory = noise.simplex2(swimmer.xPos/10, swimmer.yPos)*mySpeed-mySpeed*2;
             var mySpeed = 20*(swimmer.speed*50)/endPoint;
 
-            if (swimmer.xPos>0 && swimmer.xPos<endPoint+1){
+            if (data[data.length-1].xPos==endPoint){
+                swimmer.xPos = startingPoint;
+            }if (swimmer.xPos>0 && swimmer.xPos<endPoint){
                 swimmer.xPos = swimmer.xPos + mySpeed;
+                myYPOS = swimmer.yPos  + aleatory;
+                size = mySize;
             }else{
                 swimmer.xPos = endPoint;
-            }
+                myYPOS = swimmer.yPos;
+                size = Math.random() * (mySize*1.1 - mySize/2) + mySize*1.1;
+            };
 
             //Draw each circle
             ctx.beginPath();
             ctx.fillStyle = scaleColor(swimmer.sex);
-            ctx.arc(swimmer.xPos, swimmer.yPos +noise.simplex2(swimmer.xPos/10, swimmer.yPos)*mySpeed-mySpeed*2, mySize, 0,  2 * Math.PI);
+            ctx.arc(swimmer.xPos, myYPOS, size, 0,  2 * Math.PI);
             ctx.fill();
             ctx.closePath();
-
          }
 
         requestAnimationFrame(drawSwimmers);
+
+        canvasAllSwimmers.addEventListener('mousemove', function(evt) {
+            var mousePos = getMousePos(canvasAllSwimmers, evt);
+
+            var tooltip = d3.select(".custom-tooltip-swimmers");
+
+            if(mousePos.y>380){
+                tooltip.style("margin-top",380);
+            }if(mousePos.y<380 && mousePos.y>0){
+                tooltip.style("margin-top", (mousePos.y) + "px");
+            }if(mousePos.y<0){
+                tooltip.style("margin-top", 5 + "px");
+            };
+
+            if (mousePos.x>4*width/5){
+                tooltip.style("left",mousePos.x-230 +"px")
+            }if (mousePos.x<4*width/5){
+                tooltip.style("left",mousePos.x+10 +"px")
+            }
+
+            data.forEach(function(d){
+                if (mousePos.x> d.xPos-mySize && mousePos.x<d.xPos+mySize && mousePos.y> d.yPos-mySize && mousePos.y<d.yPos+mySize){
+                    //console.log(d);
+                    tooltip.style("opacity",1);
+                    tooltip.style("display","inherit");
+                    tooltip.select("#swimmer").html(d.name);
+                    tooltip.select("#country").html(d.country);
+                    tooltip.select("#event").html(d.event);
+                    tooltip.select("#time").html("Record: " + msToTime(d.time));
+                    tooltip.select("#speed").html("Speed: " + formatSpeed(d.speed) + " meters/second");
+                    tooltip.select("#date").html("Record broken on " + formatDate(d.date));
+                }
+            })
+        }, false);
     }
 
     //highlight a swimmer
     swimmerDispatch.on("selectswimmer", function(swimmerName,i) {
-        
+
         if (swimmerName == "All swimmers") {
 
             data.forEach(function(d){
@@ -252,6 +300,7 @@ function draw (err, rows, types, swimmers) {
                         swimmer.xPos = endPoint;
                     }
 
+
                     if (swimmerName==swimmer.name){
                         ////Draw each circle
                         ctx.beginPath();
@@ -299,6 +348,40 @@ function draw (err, rows, types, swimmers) {
                 }
 
                 requestAnimationFrame(drawSwimmerSelected);
+
+                var canvasAllSwimmersSelected = canvasAllSwimmers;
+
+                canvasAllSwimmersSelected.addEventListener('mousemove', function(evt) {
+                    var mousePos = getMousePos(canvasAllSwimmersSelected, evt);
+                    var tooltip = d3.select(".custom-tooltip-swimmers");
+
+                    if(mousePos.y>380){
+                        tooltip.style("margin-top",380);
+                    }if(mousePos.y<380 && mousePos.y>0){
+                        tooltip.style("margin-top", (mousePos.y) + "px");
+                    }if(mousePos.y<0){
+                        tooltip.style("margin-top", 5 + "px");
+                    };
+
+                    if (mousePos.x>4*width/5){
+                        tooltip.style("left",mousePos.x-230 +"px")
+                    }if (mousePos.x<4*width/5){
+                        tooltip.style("left",mousePos.x+10 +"px")
+                    }
+
+                    data.forEach(function(d){
+                        if (swimmerName == d.name && mousePos.x> d.xPos-mySize && mousePos.x<d.xPos+mySize && mousePos.y> d.yPos-mySize && mousePos.y<d.yPos+mySize){
+                            tooltip.style("opacity",1);
+                            tooltip.style("display","inherit");
+                            tooltip.select("#swimmer").html(d.name);
+                            tooltip.select("#country").html(d.country);
+                            tooltip.select("#event").html(d.event);
+                            tooltip.select("#time").html("Record: " + msToTime(d.time));
+                            tooltip.select("#speed").html("Speed: " + formatSpeed(d.speed) + " meters/second");
+                            tooltip.select("#date").html("Record broken on " + formatDate(d.date));
+                        }
+                    })
+                }, false);
             }
         }
     });
@@ -443,7 +526,18 @@ function draw (err, rows, types, swimmers) {
 
 
 
+
+
 }
+
+function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+    };
+}
+
 
 
 
@@ -501,4 +595,12 @@ function parseSwimmer(n){
         .append("option") //it has to be called this name
         .html(n.Swimmer + " (" + n.records + ")")
         .attr("value", n.Swimmer);
+}
+
+function getMousePos(canvasALL, evt) {
+    var rect = canvasALL.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+    };
 }

@@ -140,16 +140,6 @@ d3.speedSeries = function(){
             ctxChart.fillText("End",(chartEndPoint+mySize+1),chartTopPoint-35);
             ctxChart.textAlign = "left";
             ctxChart.fillText("First and last records",(chartEndPoint+mySize+10),chartTopPoint-35);
-            //ctxChart.closePath();
-
-
-            //first and last records per men and women
-            //console.log(nestBySex[0].values[0].date);
-            //ctxChart.textAlign = "left";
-            //ctxChart.fillStyle = scaleColor("Male");
-            //ctxChart.font ="8pt Raleway Medium";
-            //ctxChart.fillText(formatYear(nestBySex[0].values[0].date),0,scaleYEvent(data[0].date)-2);
-            //ctxChart.fillText(formatYear(nestBySex[0].values[nestBySex[0].values.length-1].date),0,scaleYEvent(data[numberRecords-1].date)-2);
 
             ctxChart.textAlign = "left";
             ctxChart.fillStyle = "#758288";
@@ -392,20 +382,29 @@ d3.speedSeries = function(){
             for (var i = 0; i < data.length; i++) {
                 var swimmer = data[i];
                 var mySpeed = (swimmer.speed*50)/chartEndPoint;
+                var aleatory = noise.simplex2(swimmer.xPos/10, swimmer.yPos)*mySpeed-mySpeed*2;
+                var celebration = Math.random() * (mySize*1.1 - mySize/2) + mySize*1.1;
 
-                if (swimmer.xPosChart>0 && swimmer.xPosChart<chartEndPoint+1){
-                    swimmer.xPosChart = swimmer.xPosChart + mySpeed;
-
-                }else{
-                    swimmer.xPosChart = chartEndPoint;
-                }
+                //var mouse = d3.mouse(document.getElementById("allSwimmers"));
+                //var mouseX = mouse[0],
+                //    mouseY = mouse[1];
 
                 //Draw each circle
                 ctxChart.beginPath();
                 ctxChart.globalCompositeOperation = 'screen';
                 ctxChart.globalAlpha = 0.75;
                 ctxChart.fillStyle = scaleColor(swimmer.sex);
-                ctxChart.arc(swimmer.xPosChart, swimmer.yPosChart +noise.simplex2(swimmer.xPosChart/10, swimmer.yPosChart)*mySpeed-mySpeed*2, mySize, 0,  2 * Math.PI);
+
+                if (swimmer.xPosChart>0 && swimmer.xPosChart<chartEndPoint+1){
+                    swimmer.xPosChart = swimmer.xPosChart + mySpeed;
+                    ctxChart.arc(swimmer.xPosChart, swimmer.yPosChart + aleatory, mySize, 0,  2 * Math.PI);
+
+                }else{
+                    swimmer.xPosChart = chartEndPoint;
+                    ctxChart.arc(swimmer.xPosChart, swimmer.yPosChart, celebration, 0,  2 * Math.PI);
+                }
+
+
                 ctxChart.fill();
                 ctxChart.globalCompositeOperation = 'normal';
                 ctxChart.globalAlpha = 1;

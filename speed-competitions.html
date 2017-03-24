@@ -25,22 +25,28 @@
 <div id="speedVisualization">
     <div class="container-fluid" id="speedVizbeginning">
         <div class="canvas col-md-12">
-            <h2 class="row">All records</h2>
-            <div class="control-module drop-down col-md-2">
-                <div class="select">
-                    <select class="form-control swimmer-list" id="swimmerNames">
-                    </select>
+            <h2 class="row">Competition of all records</h2>
+            <h2 class="row">If all records competed against each other in a 50m swimming pool, which one would win?</h2>
+            <p class="row">Visualization of the average speeds of all the records broken from 1900 to 2016.</p>
+            <div class="row">
+                <img class="legendIMG2" src="legend-speed3-main.svg"/>
+                <div class="control-module drop-down col-md-2">
+                    <div class="select">
+                        <select class="form-control swimmer-list" id="swimmerNames">
+                        </select>
+                    </div>
                 </div>
+                <a class="btn btn-default"  id="replayViz2">Replay</a>
             </div>
-            <a class="btn row btn-default"  id="replayViz2">Replay</a>
-            <div id="allSwimmers" class="row">
-                <div class="custom-tooltip3">
-                    <p class="legend"><span id="swimmer3"></span></p>
-                    <p class="legend"><span id="country3"></span></p>
-                    <p class="legend"><span id="date3"></span></p>
-                    <p class="legend"><span id="time3"></span></p>
-                    <p class="legend"><span id="speed3"></span></p>
 
+            <div id="allSwimmers" class="row">
+                <div class="custom-tooltip-swimmers">
+                    <p class="legend"><span id="swimmer"></span></p>
+                    <p class="legend"><span id="country"></span></p>
+                    <p class="legend"><span id="event"></span></p>
+                    <p class="legend"><span id="time"></span></p>
+                    <p class="legend"><span id="speed"></span></p>
+                    <p class="legend"><span id="date"></span></p>
                 </div>
             </div>
         </div>

@@ -421,39 +421,58 @@ d3.speedSeriesASwimmer = function(){
             for (var i = 0; i < data.length; i++) {
                 var swimmer = data[i];
                 var mySpeed = (swimmer.speed*50)/chartEndPoint;
+                var aleatory = noise.simplex2(swimmer.xPosChart/10, swimmer.yPosChart)*mySpeed-mySpeed*2;
+                var celebration = Math.random() * (mySize*1.1 - mySize/2) + mySize*1.1;
 
-                if (swimmer.xPosChart>0 && swimmer.xPosChart<chartEndPoint+1){
+                if (swimmer.xPosChart>0 && swimmer.xPosChart<chartEndPoint){
                     swimmer.xPosChart = swimmer.xPosChart + mySpeed;
-
+                    if (id == swimmer.name){
+                            ctxChart2.beginPath();
+                            ctxChart2.globalCompositeOperation = 'screen';
+                            ctxChart2.globalAlpha = 1;
+                            ctxChart2.fillStyle = scaleColor(swimmer.sex);
+                            ctxChart2.arc(swimmer.xPosChart, swimmer.yPosChart + aleatory, mySize, 0,  2 * Math.PI);
+                            ctxChart2.fill();
+                            ctxChart2.globalCompositeOperation = 'normal';
+                            ctxChart2.globalAlpha = 1;
+                            ctxChart2.closePath();
+                        }if (id != swimmer.name){
+                            //Draw each circle
+                            ctxChart2.beginPath();
+                            ctxChart2.globalCompositeOperation = 'screen';
+                            ctxChart2.globalAlpha = 0.1;
+                            ctxChart2.fillStyle = scaleColor(swimmer.sex);
+                            ctxChart2.arc(swimmer.xPosChart, swimmer.yPosChart + aleatory, 1, 0,  2 * Math.PI);
+                            ctxChart2.fill();
+                            ctxChart2.globalCompositeOperation = 'normal';
+                            ctxChart2.globalAlpha = 1;
+                            ctxChart2.closePath();
+                    }
                 }else{
                     swimmer.xPosChart = chartEndPoint;
+                    if (id == swimmer.name){
+                        ctxChart2.beginPath();
+                        ctxChart2.globalCompositeOperation = 'screen';
+                        ctxChart2.globalAlpha = 1;
+                        ctxChart2.fillStyle = scaleColor(swimmer.sex);
+                        ctxChart2.arc(swimmer.xPosChart, swimmer.yPosChart, celebration, 0,  2 * Math.PI);
+                        ctxChart2.fill();
+                        ctxChart2.globalCompositeOperation = 'normal';
+                        ctxChart2.globalAlpha = 1;
+                        ctxChart2.closePath();
+                    }if (id != swimmer.name){
+                        //Draw each circle
+                        ctxChart2.beginPath();
+                        ctxChart2.globalCompositeOperation = 'screen';
+                        ctxChart2.globalAlpha = 0.1;
+                        ctxChart2.fillStyle = scaleColor(swimmer.sex);
+                        ctxChart2.arc(swimmer.xPosChart, swimmer.yPosChart, 1, 0,  2 * Math.PI);
+                        ctxChart2.fill();
+                        ctxChart2.globalCompositeOperation = 'normal';
+                        ctxChart2.globalAlpha = 1;
+                        ctxChart2.closePath();
+                    }
                 }
-
-                if (id == swimmer.name){
-                    console.log(id);
-                    ctxChart2.beginPath();
-                    ctxChart2.globalCompositeOperation = 'screen';
-                    ctxChart2.globalAlpha = 1;
-                    ctxChart2.fillStyle = scaleColor(swimmer.sex);
-                    ctxChart2.arc(swimmer.xPosChart, swimmer.yPosChart +noise.simplex2(swimmer.xPosChart/10, swimmer.yPosChart)*mySpeed-mySpeed*2, mySize, 0,  2 * Math.PI);
-                    ctxChart2.fill();
-                    ctxChart2.globalCompositeOperation = 'normal';
-                    ctxChart2.globalAlpha = 1;
-                    ctxChart2.closePath();
-                }if (id != swimmer.name){
-                    //Draw each circle
-                    ctxChart2.beginPath();
-                    ctxChart2.globalCompositeOperation = 'screen';
-                    ctxChart2.globalAlpha = 0.1;
-                    ctxChart2.fillStyle = scaleColor(swimmer.sex);
-                    ctxChart2.arc(swimmer.xPosChart, swimmer.yPosChart +noise.simplex2(swimmer.xPosChart/10, swimmer.yPosChart)*mySpeed-mySpeed*2, 1, 0,  2 * Math.PI);
-                    ctxChart2.fill();
-                    ctxChart2.globalCompositeOperation = 'normal';
-                    ctxChart2.globalAlpha = 1;
-                    ctxChart2.closePath();
-                }
-
-
 
             }
 

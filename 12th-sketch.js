@@ -30,10 +30,10 @@ var plotMiniMenu = canvasMiniMenu
     .attr('height',height2 + margin2.t + margin2.b);
 
 //ANALYTICAL VIZ
-var width2b = d3.select('#sketch2').node().clientWidth - margin2.r - margin2.l,
-    height2b = d3.select('#sketch2').node().clientHeight - margin2.t - margin2.b;
+var width2b = d3.select('#sketch2-ranges').node().clientWidth - margin2.r - margin2.l,
+    height2b = d3.select('#sketch2-ranges').node().clientHeight - margin2.t - margin2.b;
 
-var canvas2 = d3.select('#sketch2');
+var canvas2 = d3.select('#sketch2-ranges');
 
 var plot2 = canvas2
     .append('svg')
@@ -500,7 +500,7 @@ function draw1 (err, rows, types, swimmers) {
                     .style("stroke",function(d){return scaleColor2(d.sex)})
                     .style("stroke-weight","0.5px")
                     .style("fill","none")
-                    .attr("cx",function(d){return scaleX3(d.sex)})
+                    .attr("cx",radius*2)
                     .attr("cy",210)
                     .on("mouseover",mouseOverComp)
                     .on("mousemove",mouseOverComp)
@@ -516,40 +516,40 @@ function draw1 (err, rows, types, swimmers) {
                     .on("start",function timer (d){
                         d3.select("#year").html(formatYear(d.date))
                             .style("padding-left",(radius*2-49/2)+"px")
-                            .style("margin-top",-(300)+"px");
+                            .style("margin-top",-(600)+"px");
                         d3.select(this).style("opacity",1)
 
                     })
                     .style("opacity",0.5);
 
+                plot2.selectAll(".bySex").remove();
+
 
                 sketchingEvents.exit().remove();
 
-                plot2.selectAll(".bySex").remove();
-
-                plot2.append("text")
-                    .attr("class","axis-x bySex")
-                    .text("Men")
-                    .attr("x",scaleX3("Male"))
-                    .attr("y",460)
-                    .style("text-anchor","middle");
-
-                plot2.append("text")
-                    .attr("class","axis bySex")
-                    .text("Women")
-                    .attr("x",scaleX3("Female"))
-                    .attr("y",460)
-                    .style("text-anchor","middle");
+                //plot2.selectAll(".bySex").remove();
+                //
+                //plot2.append("text")
+                //    .attr("class","axis-x bySex")
+                //    .text("Men")
+                //    .attr("x",scaleX3("Male"))
+                //    .attr("y",460)
+                //    .style("text-anchor","middle");
+                //
+                //plot2.append("text")
+                //    .attr("class","axis bySex")
+                //    .text("Women")
+                //    .attr("x",scaleX3("Female"))
+                //    .attr("y",460)
+                //    .style("text-anchor","middle");
 
 
                 //btns
                 d3.selectAll('.oneEventBtn').on('click',function(d){
-                    var type = d3.select(this).select();
-
-                    console.log("hello")
+                    var type = d3.select(this).attr('id');
+                    console.log(type)
 
                     if (type=="sex"){
-                        d3.select("#sex").html("Combine genders")
                         plot2.selectAll(".event")
                             .transition()
                             .duration(500)
@@ -578,7 +578,7 @@ function draw1 (err, rows, types, swimmers) {
                             .duration(500)
                             .ease(d3.easeQuadInOut)
                             .style("padding-left",(2*(scaleRCircles(speedExtent[1]))+40)+"px")
-                            .style("margin-top",-(300)+"px");
+                            .style("margin-top",-(600)+"px");
 
                     }if (type=="together"){
                         plot2.selectAll(".event")
@@ -598,7 +598,7 @@ function draw1 (err, rows, types, swimmers) {
                             .duration(500)
                             .ease(d3.easeQuadInOut)
                             .style("padding-left",(radius*2-49/2)+"px")
-                            .style("margin-top",-(300)+"px");
+                            .style("margin-top",-(600)+"px");
                     }
                 })
 

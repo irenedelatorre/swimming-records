@@ -15,13 +15,13 @@
 			<div class="lists">
 				<div class="controls clearfix">
 				<div class="control-module drop-down">
-					<div class="select">
+					<div class="select col-md-3">
                         <span class="list-title">By categorization</span>
 						<select class="form-control type-list">
 							<option value="Default">Default</option>
 						</select>
 					</div>
-                    <div class="select">
+                    <div class="select col-md-2">
                         <span class="list-title">By swimmer's name</span>
                         <select class="form-control swimmer-list">
                         </select>
@@ -44,25 +44,13 @@
 
 		</div><!--.container-->
 <div class="container-fluid">
-	<h2>Events exploration</h2>
+	<h2 style="margin-top: 100px;">Events exploration</h2>
 	<p>Explore the data by selecting an specific competition</p>
-	<a
-			class="download"
-			href="javascript:(function () { var e = document.createElement('script'); if (window.location.protocol === 'https:') { e.setAttribute('src', 'https://rawgit.com/NYTimes/svg-crowbar/gh-pages/svg-crowbar.js'); } else { e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); } e.setAttribute('class', 'svg-crowbar'); document.body.appendChild(e); })();">
-		<!--⤋--><big>⇩</big> Download
-	</a>
 	<div class="canvas" id="sketch2">
 		<div id="miniMenu"></div>
 		<div class="custom-tooltip2">
 			<p class="legend"><span id="type"></span></p>
 		</div>
-		<p id="eventTitle"> </p>
-		<a class="btn btn-default year" id="sex">Separate records by sex</a>
-		<a class="btn btn-default year" id="together">Cluster records</a>
-		<div class="timer">
-			<p class="clock" id="timer2"></p>
-		</div>
-
 		<!--<div id="eventSketch" ></div>-->
 	</div>
 </div>
@@ -76,8 +64,8 @@
 		<script src="lib/physics.js"></script>
 		<script src="lib/sketch.min.js"></script>
 		<script src="records.js"></script>
-		<!--<script src="7th-sketch.js"></script>-->
-		<script src="7th-2sketch.js"></script>
+		<script src="7th-sketch.js"></script>
+		<!--<script src="7th-2sketch.js"></script>-->
 		<!--<script src="lib/p5/p5.dom.js"></script>-->
 		<script src="lib/p5/p5.js"></script>
 	</body>

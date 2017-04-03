@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,600,700,700i,800,900" rel="stylesheet">
     <link href="bootstrap.min.css" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet"/>
+    <link href="old-style.css" rel="stylesheet"/>
 </head>
 <body id="body">
 <div class="firstPart">
@@ -53,13 +54,11 @@
     <div class="col-md-4 canvas hideViz1">
         <h3 id="eventTitle" class="row"> </h3>
         <p class="row">Click on the different views to see how the range of speeds have change</p>
-        <div class="row">
-            <a class="btn btn-default oneEvent" id="sex">Separate records by sex</a>
-            <a class="btn btn-default oneEvent" id="together">Cluster records</a>
-        </div>
+        <a class="row btn btn-default oneEventBtn" id="together">Cluster records</a>
+        <a class="row btn btn-default oneEventBtn" id="sex">Separate records by sex</a>
     </div>
     <div class="canvas hideViz1 col-md-8">
-        <div id="sketch2">
+        <div id="sketch2-ranges">
             <div class="custom-tooltip2">
                 <p class="legend"><span id="swimmer2"></span></p>
                 <p class="legend">Total time: <span id="time2"></span></p>
@@ -67,7 +66,7 @@
                 <p class="legend"><span id="date2"></span></p>
             </div>
         </div>
-        <p class="clock" id="year"></p>
+        <p class="clockEvent" id="year"></p>
     </div>
 </div>
 <div class="container-fluid">
@@ -94,11 +93,6 @@
         </div>
     </div>
     <div class="canvas row" id="sketch1">
-        <a
-                class="download"
-                href="javascript:(function () { var e = document.createElement('script'); if (window.location.protocol === 'https:') { e.setAttribute('src', 'https://rawgit.com/NYTimes/svg-crowbar/gh-pages/svg-crowbar.js'); } else { e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); } e.setAttribute('class', 'svg-crowbar'); document.body.appendChild(e); })();">
-            <!--⤋--><big>⇩</big> Download
-        </a>
         <div class="custom-tooltip1">
             <p class="legend">Swimmer: <span id="swimmer"></span></p>
             <p class="legend">Time:  <span id="time"></span></p>

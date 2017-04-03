@@ -503,7 +503,7 @@ function draw1 (err, rows, types, swimmers) {
 
 
         var speed = d3.scaleLinear().domain([speedExtent]).range([100,2000]),
-            scaleRMiniCircles = d3.scaleSqrt().range([10, 30]).domain(speedExtent),
+            scaleRMiniCircles = d3.scaleSqrt().range([10, 50]).domain(speedExtent),
             scaleX2 = d3.scaleBand().rangeRound([20, width2]).domain(events),
             speedByTime2 = d3.scaleTime().domain([date1,date2]).range([100,10000]);
 

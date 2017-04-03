@@ -18,3 +18,15 @@
     border-radius: 0;
     /* border: 1px solid #758288; */
 }
+.clockEvent{
+    color: #758288;
+    font-weight: 600;
+}
+
+#sketch2-ranges{
+    height: 800px;
+}
+#sketch2-ranges svg{
+    height: 800px;
+}
+

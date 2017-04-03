@@ -45,7 +45,7 @@ var formatDate = d3.timeFormat("%B %d, %Y"),
     formatSpeed = d3.format(".2f"),
     scaleColor = d3.scaleOrdinal().domain(["Female","Male"]).range(["#AD1BEA","#0CA3B9"]),
     mySize = 2,
-    startingPoint = 40,
+    startingPoint = 60,
     endPoint = width-50;
     topPoint = 50,
     scaleX = d3.scaleLinear().range([startingPoint, endPoint]),
@@ -135,16 +135,18 @@ function draw (err, rows, types, swimmers) {
             ctx.strokeStyle = "#475960";
             ctx.lineWidth = 1;
             ctx.setLineDash([4, 2]);
-            ctx.moveTo(startingPoint-5,scaleY(d));
+            ctx.moveTo(startingPoint-20,scaleY(d));
             ctx.lineTo(endPoint+mySize+5,scaleY(d));
             ctx.stroke();
         });
 
         ctx.beginPath();
-        ctx.textAlign = "center";
         ctx.fillStyle ="#758288";
         ctx.font ="13px Raleway Medium";
+        ctx.textAlign = "left";
+        ctx.fillText("Years",0,topPoint-35);
         ctx.fillText("Start (0 m)",startingPoint,topPoint-35);
+        ctx.textAlign = "right";
         ctx.fillText("End (50 m)",(endPoint+mySize+1),topPoint-35);
         ctx.fillStyle = "none";
         ctx.strokeStyle = "#475960";
@@ -371,6 +373,7 @@ function draw (err, rows, types, swimmers) {
 
                     data.forEach(function(d){
                         if (swimmerName == d.name && mousePos.x> d.xPos-mySize && mousePos.x<d.xPos+mySize && mousePos.y> d.yPos-mySize && mousePos.y<d.yPos+mySize){
+                            console.log(d.name)
                             tooltip.style("opacity",1);
                             tooltip.style("display","inherit");
                             tooltip.select("#swimmer").html(d.name);
@@ -524,7 +527,21 @@ function draw (err, rows, types, swimmers) {
         }, 500);
     });
 
+    d3.select("#speedCalculation").on("mouseover",function(){
+        d3.select("#speedInfo").classed("speedInfo",true).classed("speedInfoHide",false);
+    })
 
+    d3.select("#speedCalculation").on("mouseout",function(){
+        d3.select("#speedInfo").classed("speedInfo",false).classed("speedInfoHide",true);
+    })
+
+    d3.select("#speedCalculation2").on("mouseover",function(){
+        d3.select("#speedInfo2").classed("speedInfo",true).classed("speedInfoHide",false);
+    })
+
+    d3.select("#speedCalculation2").on("mouseout",function(){
+        d3.select("#speedInfo2").classed("speedInfo",false).classed("speedInfoHide",true);
+    })
 
 
 

@@ -119,7 +119,7 @@ a .header {
 
 .navSpeedEvent{
 	z-index: 150;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	background-color: #192F38;
 }
 
@@ -160,9 +160,15 @@ a .header {
 	background-color: #192f38;
 	margin-top: 10px;
 	color: #799ead;
-	border: 1px solid #799ead ;
+	border-bottom: 2px solid #799ead !important;
 	margin-right: 30px;
 	margin-bottom: 10px;
+	border: 0px;
+}
+
+.firstPart .activePage {
+	color: #E7F1F2 !important;
+	border-bottom: 2px solid #E7F1F2 !important;
 }
 
 .firstPart .btn-default:hover,
@@ -170,10 +176,12 @@ a .header {
 .firstPart .btn-default:active,
 .firstPart .btn-default.focus,
 .firstPart .btn-default:focus {
-	color: #192f38;
-	background-color: #799ead;
-	border-color: #799ead;
+	color: #D1D5D7;
+	border-bottom: 2px solid #D1D5D7 !important;
+	border: 0px;
 	border-radius: 0;
+	background-color: #192f38;
+
 }
 .btn-default:active:hover, .btn-default.active:hover, .open>.dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open>.dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open>.dropdown-toggle.btn-default.focus {
 	color: #D1D5D7;
@@ -313,6 +321,43 @@ a .header {
 }
 
 /*Speed visualization*/
+
+.speedInfo{
+	position: absolute;
+	width: 550px;
+	background-color: rgba(25, 47, 56, 0.75);
+	padding: 20px;
+	border: 1px solid #758288;
+	z-index: 100;
+	margin-top: 10px;
+}
+.speedInfoHide{
+	display:none;
+}
+span.informationIcon {
+	background-color: transparent;
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	margin-right: 5px;
+	background-image: url(../information-icon.svg);
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.speedTitle{
+	margin-top: 40px;
+	color: #758288;
+	font-weight: 600;
+}
+
+.margininfo{
+	top: 45px;
+	position: absolute;
+}
+
+.speedInfo img{
+	width: 100%;
+}
 
 #sketch1{
 	height:700px;
@@ -514,7 +559,18 @@ a .header {
 	margin-top: 85px;
 }
 
+.iconPage{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+}
+
+.iconHTML:hover{
+	opacity:1;
+}
 .iconHTML{
+	opacity: 0.75;
 	margin-top: 20px;
 	margin-bottom: 20px;
 }

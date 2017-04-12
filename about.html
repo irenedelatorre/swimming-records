@@ -23,72 +23,49 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 <div class="firstPart">
     <div class="container">
-        <div class="col-md-10">
+        <div class="col-md-9">
             <a class="header" href="index.html">Swimming World Records throughout History</a>
-            <h1 class="row">Swimming World Records: a race against time</h1>
-            <a class="btn row btn-default"  id="swimmersViz" href="speed-competitions.html">Competition of speeds</a>
-            <a class="btn row btn-default"  id="speedViz" href="speed-ranges.html">Speed improvements</a>
-            <a class="btn row btn-default activePage" id="analyticalViz" href="analytical.html">Analytical visualization</a>
+            <h1 class="row">About</h1>
         </div>
-        <div class="col-md-2">
-            <img class="iconPage" src="analytical-icon.svg"/>
+        <div class="col-md-3">
+            <img class="iconAbout" src="icon.svg"/>
         </div>
     </div>
-
 </div>
-<div class="container-fluid" id="analyticalVisualization">
-    <h2 class="col-md-12">Record times per type of race, country and continent</h2>
-    <div class="col-md-12" id="analyticalPlot">
-        <div id="explanation2" class="col-md-2"></div>
-        <div class="lists col-md-8">
-            <div class="control-module drop-down col-md-3">
-                <div class="select">
-                    <span class="list-title">Sort by</span>
-                    <select class="form-control type-list" id="sorting">
-                        <option value="Default">Event</option>
-                    </select>
-                </div>
-            </div>
-            <div class="control-module drop-down col-md-3">
-                <div class="select">
-                    <span class="list-title">Zoom in a swimmer (default view)</span>
-                    <select class="form-control swimmer-list" id="swimmer-list">
-                    </select>
-                </div>
-            </div>
-            <div class="control-module drop-down col-md-3">
-                <div class="select">
-                    <span class="list-title">Zoom in a event (default view)</span>
-                    <select class="form-control event-list" id="event-list">
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="clock row">
-                <p>Date</p>
-                <p id="timer"> </p>
-            </div>
-        </div>
+<div class="container about">
+    <div class="col-md-6">
+        <h2 class="row">The project</h2>
+        <p class="row">The project &lsquo;Swimming World Records throughout History&rsquo; is part of a master thesis that explores how motion can be used in visualizations. Movements and transformations are often used as an add-on of the design. The thesis reveals that this type of implementations can be used with four communication goals:</p>
+        </br>
+        <ul>
+            <li>To portray data directly through motion (named in the thesis as &lsquo;data as motion&rsquo;)</li>
+            <li>To interpolate through data values (&lsquo;motion as an interpolation of data values&rsquo;)</li>
+            <li>To guide viewers through the visualization (&lsquo;motion as a storytelling device&rsquo;)</li>
+            <li>And to captivate viewers (&lsquo;motion as a captivator&rsquo;)</li>
+        </ul>
+        </br>
+        <p class="row">The ultimate goal of this thesis is to argue that motion in visualizations is not a gratuitous element but, on the contrary, a component that can influence how users interact and understand the design.</p>
+        </br>
+        <p class="row">The <em>Swimming World Records throughout History</em> project was developed with various goals. The most important one, related to this thesis, was to explore the data using motion, finding the problems of the theory and understanding how information designers can employ movements and transformations. The other objectives were, first, to analyze the data and find patterns &mdash;when there were more records broken, for example&mdash; and, secondly, visualize it for a general public, for people that might or might not be interested in this sport. Attract them, making them want to know more about swimming, beyond the traditional competitions seasons.</p>
+        </br>
+        <p class="row">To do so, the project uses three ways to visualize the data. The first one, <a href="speed-competitions.html">Competition of speeds</a>, shows how fast each record is through a metaphorical and visual competition; the second one, <a href="speed-ranges.html">Speed improvements</a>, focuses on analyzing how much the average speeds of the records have increased in the different swimming events; and the third one, <a href="analytical.html">Analytical visualization</a>, offers a more in-depth view of the data providing information about swimmers&rsquo; nationality and record&rsquo;s total times.</p>
+        </br>
+        <p class="row">Motion is present in the three designs in different forms, achieving, also, different tasks:</p>
+        </br>
+        <ul>
+            <li><em>Showing </em>viewers how the sport has improved over the years</li>
+            <li><em>Facilitating </em>the interactivity through the different ways of exploring the data</li>
+            <li>And <em>captivating</em> viewers (hopefully)</li>
+        </ul>
+        </br>
+        <p class="row"><a  href="index.html">Go back to Index</a></p>
     </div>
-    <div class="canvas col-md-12">
-        <div id="sketch1">
-            <div class="custom-tooltip1">
-                <p class="legend">Swimmer: <span id="swimmer"></span></p>
-                <p class="legend">Time:  <span id="time"></span></p>
-                <p class="legend">Country:  <span id="country"></span></p>
-                <p class="legend">Date:  <span id="date"></span></p>
-
-            </div>
-        </div>
-    </div>
-
 </div>
 <div class="container modal-footer">
     <div class="col-md-9">
         <h3 class="credits">About this project</h3>
         <div class="col-md-5 creditdiv">
-            <p class="row credits">This project is part of the master thesis 'Movements and Transformations' about the role that motion plays in visualizations. You can learn more about it <a href="about.html">here</a></p>
+            <p class="row credits">This project is part of the master thesis 'Movements and Transformations' about the role that motion plays in visualizations. You can learn more about it <a href="about">here</a></p>
             <p class="row credits">The data came from the list of world records in swimming set in long course, provided by <a href="https://en.wikipedia.org/wiki/List_of_world_records_in_swimming#Long_course">Wikipedia</a>.</p>
         </div>
         <div class="col-md-1"></div>
@@ -108,15 +85,5 @@
         </div>
     </div>
 </div>
-
-
-<!-- Scripts -->
-
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="lib/crossfilter/crossfilter.js"></script>
-<script src="https://d3js.org/d3-queue.v2.min.js"></script>
-<script src="lib/jquery/jquery-1.11.1.min.js"></script>
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-<script src="analytical.js"></script>
 </body>
 </html>

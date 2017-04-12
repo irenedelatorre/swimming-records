@@ -1,4 +1,4 @@
-html,body,div,ul,li,svg{
+html,body,div,svg{
 	margin:0;
 	padding:0;
 	list-style:none;
@@ -51,12 +51,12 @@ h3,.event-names{
 
 p{
 	font-weight: 400;
-	font-size: 0.9em;
-	/*color: #E7F1F2;*/
+	font-size: 11pt;
+	line-height: 1.5;
 }
 a{
 	font-weight: 400;
-	font-size: 0.9em;
+	font-size: 11pt;
 	color: #799ead;
 	margin-left: -15px !important;
 }
@@ -538,17 +538,27 @@ span.informationIcon {
 .modal-footer {
 	border-top: 1px solid #758288;
 	margin-top: 100px;
+	text-align: left;
+	margin-bottom: 50px;
 }
 
-.creditdiv {
-	border-left: 1px solid #799ead;
+.rightside{
+	margin-top: 20px;
 }
 
 .credits {
-	font-size: 9pt;
-	line-height: 11pt;
-	/*text-align: right;*/
-	padding-left: 20px;
+	font-size: 10pt;
+	/*line-height: 11pt;*/
+	text-align: left;
+	/*padding-left: 20px;*/
+}
+.credits a{
+	font-size: 10pt;
+	font-weight: 600;
+	margin-left:0px !important;
+}
+.creditsbtns{
+	margin-top:10px;
 }
 
 .icon {
@@ -558,7 +568,13 @@ span.informationIcon {
 	margin-right: auto;
 	margin-top: 85px;
 }
-
+.iconAbout {
+	width: 60%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
 .iconPage{
 	display: block;
 	margin-left: auto;
@@ -575,13 +591,17 @@ span.informationIcon {
 	margin-bottom: 20px;
 }
 
-
-/*//download svg*/
-.download {
-	background: #333;
-	color: #FFF;
-	font-weight: 900;
-	border: 2px solid #B10000;
-	padding: 4px;
-	margin:4px;
+/*about*/
+li, ul {
+	font-weight: 400;
+	font-size: 11pt;
+	/*color: #E7F1F2;*/
+	margin-bottom:5px;
+	margin-left:-20px;
+}
+.about a {
+	font-weight: 600;
+	font-size: 11pt;
+	color: #799ead;
+	 margin-left: 0px !important;
 }

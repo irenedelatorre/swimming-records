@@ -4,12 +4,24 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
     <!--<meta http-equiv="content-type" content="text/html; charset=utf-8" />-->
-    <title>Sketches</title>
+    <title>Swimming World Records throughout History</title>
+    <meta name="description" content="Data visualization about the swimming world records set in long course from 1900 to 2016">
+    <meta name="keywords" content="data visualization, visulization, swimming, records, d3.js, Northeastern University, Information Design and Visualization, speed, sports">
+    <meta name="author" content="Irene de la Torre Arenas">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,600,700,700i,800,900" rel="stylesheet">
     <link href="bootstrap.min.css" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet"/>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body id="body">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <div class="firstPart">
     <div class="container">
         <div class="col-md-10">
@@ -73,17 +85,28 @@
 </div>
 
 <div class="container modal-footer">
-    <div class="col-md-5 creditdiv">
-        <p class="row credits">Irene de la Torre Arenas | February 2016</p>
-        <p class="row credits">Information Design Studio 3 (Fall 2016). Mentored by Mauro Martino</p>
-        <p class="row credits">Thesis Advisor: Pedro Cruz</p>
-        <p class="row credits">Northeastern University</p>
+    <div class="col-md-9">
+        <h3 class="credits">About this project</h3>
+        <div class="col-md-5 creditdiv">
+            <p class="row credits">This project is part of the master thesis 'Movements and Transformations' about the role that motion plays in visualizations. You can learn more about it <a href="about.html">here</a></p>
+            <p class="row credits">The data came from the list of world records in swimming set in long course, provided by <a href="https://en.wikipedia.org/wiki/List_of_world_records_in_swimming#Long_course">Wikipedia</a>.</p>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-5 creditdiv">
+            <p class="credits">Author: Irene de la Torre Arenas</p>
+            <p class="credits">Thesis Advisor: Pedro Cruz</p>
+            <p class="credits" ><a href="http://www.northeastern.edu/visualization/">MFA Information Design and Visualization</a></p>
+            <p class="credits">Northeastern University | April 2017</p>
+        </div>
     </div>
-    <a
-            class="download"
-            href="javascript:(function () { var e = document.createElement('script'); if (window.location.protocol === 'https:') { e.setAttribute('src', 'https://rawgit.com/NYTimes/svg-crowbar/gh-pages/svg-crowbar.js'); } else { e.setAttribute('src', 'http://nytimes.github.com/svg-crowbar/svg-crowbar.js'); } e.setAttribute('class', 'svg-crowbar'); document.body.appendChild(e); })();">
-        <!--⤋--><big>⇩</big> Download
-    </a>
+    <div class="col-md-3 creditdiv">
+        <h3 class="col-md-12 credits">Share</h3>
+        <div class="col-md-4 credits creditsbtns fb-share-button" data-href="https://irenedelatorre.github.io/swimming-records/index.html" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Firenedelatorre.github.io%2Fswimming-records%2Findex.html&amp;src=sdkpreparse">Share</a></div>
+        <div class="col-md-4 credits creditsbtns"><a href="https://twitter.com/intent/tweet" class="twitter-mention-button" data-text="Swimming World Records throughout History via @inari_ta" data-related="inari_ta" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div>
+        <div class="col-md-4 credits creditsbtns ">
+            <div class="g-plus" data-action="share" data-annotation="none" data-href="https://irenedelatorre.github.io/swimming-records/index.html"></div>
+        </div>
+    </div>
 </div>
 
 

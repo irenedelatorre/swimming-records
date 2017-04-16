@@ -21,9 +21,6 @@ expl2 = expl2
     .attr('width',width+margin.r+margin.l)
     .attr('height',height + margin.t + margin.b);
 
-var date1 = new Date(1900,1,1);
-var date2 = new Date(2016,10,31);
-
 var formatDate = d3.timeFormat("%B %d, %Y"),
     formatDate2 = d3.timeFormat("%b %d, %Y"),
     formatYear = d3.timeFormat("%Y"),
@@ -54,6 +51,12 @@ function draw1 (err, rows, types, swimmers) {
 
     d3.select(".swimmer-list2").on("change", function () {swimmerDispatch.call("selectswimmer", this, this.value);});
     d3.select(".swimmer-list3").on("change", function () {swimmerDispatch2.call("selectswimmer2", this, this.value);});
+
+
+    var date1and2 = d3.extent(rows.map(function (d) {return d.date}));
+
+    var date1 = date1and2[0];
+    var date2 = date1and2[1];
 
     var data = rows;
 

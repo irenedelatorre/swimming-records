@@ -33,9 +33,6 @@ window.cancelRequestAnimFrame = ( function() {
 } )();
 
 var myReq;
-var date1 = new Date(1900,1,1);
-var date2 = new Date(2016,10,31);
-
 var today = new Date ();
 var seconds = today.getSeconds();
 
@@ -79,6 +76,12 @@ function draw (err, rows, types, swimmers) {
     d3.select(".swimmer-list").on("change", function () {swimmerDispatch.call("selectswimmer", this, this.value);});
     d3.select(".swimmer-list2").on("change", function () {swimmerDispatch2.call("selectswimmer2", this, this.value);});
 
+
+    var date1and2 = d3.extent(rows.map(function (d) {return d.date}));
+
+    var firstRecord = date1and2[0];
+    var lastRecord = date1and2[1];
+
     //FILTERS
     var data = rows.sort(function(a,b){return a.date - b.date}),
         swims = crossfilter (data),
@@ -93,8 +96,6 @@ function draw (err, rows, types, swimmers) {
     var speedExtent = d3.extent(data.map(function (d) {return d.speed}));
     var speedScale = d3.scaleLinear().domain(speedExtent).range([1,4]);
     var dateExtent = d3.extent(data.map(function (d) {return d.date}));
-
-    console.log(speedExtent)
 
     //y = always, speed dif. depending on TIME
     scaleY = scaleY.domain(dateExtent);
@@ -123,7 +124,7 @@ function draw (err, rows, types, swimmers) {
         ctx.fillRect(0,0,width,height);
 
         //Y axis
-        var years = [date1,new Date(1920,1,1),new Date(1940,1,1),new Date(1960,1,1),new Date(1980,1,1),new Date(2000,1,1),date2];
+        var years = [firstRecord,new Date(1920,1,1),new Date(1940,1,1),new Date(1960,1,1),new Date(1980,1,1),new Date(2000,1,1),lastRecord];
         years.forEach(function(d){
             ctx.beginPath();
             ctx.textAlign = "left";
@@ -253,7 +254,7 @@ function draw (err, rows, types, swimmers) {
                 ctx.fillRect(0,0,width,height);
 
                 //Y axis
-                var years = [date1,new Date(1920,1,1),new Date(1940,1,1),new Date(1960,1,1),new Date(1980,1,1),new Date(2000,1,1),date2];
+                var years = [firstRecord,new Date(1920,1,1),new Date(1940,1,1),new Date(1960,1,1),new Date(1980,1,1),new Date(2000,1,1),lastRecord];
                 years.forEach(function(d){
                     ctx.beginPath();
                     ctx.textAlign = "left";

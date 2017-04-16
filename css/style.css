@@ -201,6 +201,11 @@ a .header {
 	border-color: #758288;
 }
 
+.btn-highlighted {
+	color: #E7F1F2;
+	background-color: #192f38;
+	border: 1px solid #E7F1F2;
+}
 
 
 .legendIMG{

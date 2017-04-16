@@ -18,9 +18,6 @@ expl2 = expl2
     .attr('width',width+margin2.r+margin2.l)
     .attr('height',height + margin2.t + margin2.b);
 
-var date1 = new Date(1900,1,1);
-var date2 = new Date(2016,10,31);
-
 var formatDate = d3.timeFormat("%B %d, %Y"),
     formatDate2 = d3.timeFormat("%b %d, %Y"),
     formatYear = d3.timeFormat("%Y"),
@@ -54,6 +51,11 @@ function draw1 (err, rows, types, swimmers, listofevents) {
     d3.select(".swimmer-list").on("change", function () {swimmerDispatch.call("changeswimmer", this, this.value);});
     d3.select(".event-list").on("change", function () {eventDispatch.call("selectEvent", this, this.value);});
 
+    var date1and2 = d3.extent(rows.map(function (d) {return d.date}));
+
+    var firstRecord = date1and2[0];
+    var lastRecord = date1and2[1];
+
     var data = rows;
 
     //FILTERS
@@ -73,7 +75,7 @@ function draw1 (err, rows, types, swimmers, listofevents) {
     scaleX = scaleX.domain(events).padding([25]) ;
 
     var speed = d3.scaleLinear().domain([min,max]).range([50000,max/3]);
-    var speedByTime = d3.scaleTime().domain([date1,date2]).range([100,5000]);
+    var speedByTime = d3.scaleTime().domain([firstRecord,lastRecord]).range([100,5000]);
 
     showAnalyticalViz(data)
 
@@ -133,8 +135,6 @@ function draw1 (err, rows, types, swimmers, listofevents) {
         plot.append('g').attr('transform','translate('+ margin.l+','+ (margin.t+height)+')').attr('class','axis axis-xDots axis-x');
         plot.append('g').attr("transform","translate("+(margin.l)+","+ margin.t+")").attr('class','dots');
 
-        //console.log(margin2.l/)
-
         plot.select('.axis-x').transition().duration(500).call(axisX)
             .selectAll("text")
             .style("text-anchor", "end")
@@ -146,7 +146,6 @@ function draw1 (err, rows, types, swimmers, listofevents) {
 
         plot.select('.axis-y').transition().duration(500).call(axisY);
 
-        console.log(data.event)
         events.forEach(function (e) {
             if (e.event == data.event) {
                 return stateAbv = e.abv
@@ -206,8 +205,7 @@ function draw1 (err, rows, types, swimmers, listofevents) {
             }
         });
 
-        var lastDate = formatDate2(new Date(2016,10,31));
-
+        var lastRecordFormat = formatDate2(lastRecord);
 
         //dispatch function
         swimmerDispatch.on("changeswimmer", function(swimmer,i) {
@@ -220,7 +218,7 @@ function draw1 (err, rows, types, swimmers, listofevents) {
             var formValue2 = form2.options[form2.selectedIndex].text;
             form2.selectedIndex=0;
 
-            d3.select("#timer").html(lastDate);
+            d3.select("#timer").html(lastRecordFormat);
 
             var swimsSwimmer = swimsBySwimmer.filterAll();
 
@@ -303,6 +301,8 @@ function draw1 (err, rows, types, swimmers, listofevents) {
         //dispatch function 2
         eventDispatch.on("selectEvent", function(event,i) {
 
+            d3.select("#timer").html(lastRecordFormat);
+
             var form = document.getElementById("sorting");
             var formValue = form.options[form.selectedIndex].text;
             form.selectedIndex=0;
@@ -310,8 +310,6 @@ function draw1 (err, rows, types, swimmers, listofevents) {
             var form2 = document.getElementById("swimmer-list");
             var formValue2 = form2.options[form2.selectedIndex].text;
             form2.selectedIndex=0;
-
-            d3.select("#timer").html(lastDate);
 
             var swimsSwimmer = swimsBySwimmer.filterAll();
 
@@ -395,7 +393,7 @@ function draw1 (err, rows, types, swimmers, listofevents) {
 
         function drawDefault (){
 
-            d3.select("#timer").html(lastDate);
+            d3.select("#timer").html(lastRecordFormat);
 
             //y = always, speed dif. depending on TIME
             scaleY = scaleY.domain([0,max]);
@@ -478,7 +476,7 @@ function draw1 (err, rows, types, swimmers, listofevents) {
         }
 
         function drawCountries (d){
-            d3.select("#timer").html(lastDate);
+            d3.select("#timer").html(lastRecordFormat);
 
             swimsCountry = d3.nest()
                 .key(function (d) {
@@ -527,7 +525,7 @@ function draw1 (err, rows, types, swimmers, listofevents) {
 
         function drawContinents (d){
 
-            d3.select("#timer").html(lastDate);
+            d3.select("#timer").html(lastRecordFormat);
 
             var swimsContinent = d3.nest()
                 .key(function (d) {return d.continent})

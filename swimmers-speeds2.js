@@ -129,7 +129,7 @@ function draw (err, rows, types, swimmers) {
             ctx.beginPath();
             ctx.textAlign = "left";
             ctx.fillStyle ="#758288";
-            ctx.font ="13px Raleway Medium";
+            ctx.font ="600 13px Raleway";
             ctx.textBaseline = "middle";
             ctx.fillText(formatYear(d),0,scaleY(d));
             ctx.fillStyle = "none";
@@ -143,7 +143,7 @@ function draw (err, rows, types, swimmers) {
 
         ctx.beginPath();
         ctx.fillStyle ="#758288";
-        ctx.font ="13px Raleway Medium";
+        ctx.font ="600 13px Raleway";
         ctx.textAlign = "left";
         ctx.fillText("Years",0,topPoint-35);
         ctx.fillText("Start (0 m)",startingPoint,topPoint-35);
@@ -259,7 +259,7 @@ function draw (err, rows, types, swimmers) {
                     ctx.beginPath();
                     ctx.textAlign = "left";
                     ctx.fillStyle ="#758288";
-                    ctx.font ="13px Raleway Medium";
+                    ctx.font ="600 13px Raleway";
                     ctx.textBaseline = "middle";
                     ctx.fillText(formatYear(d),0,scaleY(d));
                     ctx.fillStyle = "none";
@@ -275,7 +275,7 @@ function draw (err, rows, types, swimmers) {
                 ctx.beginPath();
                 ctx.textAlign = "center";
                 ctx.fillStyle ="#758288";
-                ctx.font ="13px Raleway Medium";
+                ctx.font ="600 13px Raleway";
                 ctx.fillText("Start",startingPoint,topPoint-35);
                 ctx.fillText("End",(endPoint+mySize+1),topPoint-35);
                 ctx.fillStyle = "none";

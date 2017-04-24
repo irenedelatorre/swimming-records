@@ -8,9 +8,9 @@ d3.speedSeries = function(){
         speedExtent = [],
         dateExtent = [],
         eventNames = [],
-        chartStartingPoint = 0,
-        chartEndPoint = chartW - 10;
-        chartTopPoint = 50,
+        chartStartingPoint = 35,
+        chartEndPoint = chartW - 150;
+        chartTopPoint = 10,
         scaleYEvent = d3.scaleTime().domain(dateExtent).range([chartTopPoint,chartH-25]),
         valueAccessor = function(d){ return d;};
 
@@ -134,7 +134,7 @@ d3.speedSeries = function(){
             ctxChart.beginPath();
             ctxChart.textAlign = "center";
             ctxChart.fillStyle ="#758288";
-            ctxChart.font ="8pt Raleway Medium";
+            ctxChart.font ="600 8pt Raleway";
             ctxChart.fillText("Start",chartStartingPoint,chartTopPoint-35);
             ctxChart.textAlign = "center";
             ctxChart.fillText("End",(chartEndPoint+mySize+1),chartTopPoint-35);
@@ -143,7 +143,7 @@ d3.speedSeries = function(){
 
             ctxChart.textAlign = "left";
             ctxChart.fillStyle = "#758288";
-            ctxChart.font ="8pt Raleway Medium";
+            ctxChart.font ="600 8pt Raleway";
             ctxChart.fillText(formatYear(data[0].date),0,scaleYEvent(data[0].date));
             ctxChart.fillText(formatYear(data[numberRecords-1].date),0,scaleYEvent(data[numberRecords-1].date));
 

@@ -144,7 +144,7 @@ d3.speedSeriesASwimmer = function(){
             ctxChart2.beginPath();
             ctxChart2.textAlign = "center";
             ctxChart2.fillStyle ="#758288";
-            ctxChart2.font ="8pt Raleway Medium";
+            ctxChart2.font ="600 8pt Raleway";
             ctxChart2.fillText("Start",chartStartingPoint,chartTopPoint-35);
             ctxChart2.textAlign = "center";
             ctxChart2.fillText("End",(chartEndPoint+mySize+1),chartTopPoint-35);
@@ -153,7 +153,7 @@ d3.speedSeriesASwimmer = function(){
 
             ctxChart2.textAlign = "left";
             ctxChart2.fillStyle = "#758288";
-            ctxChart2.font ="8pt Raleway Medium";
+            ctxChart2.font ="600 8pt Raleway";
             ctxChart2.fillText(formatYear(data[0].date),0,scaleYEvent(data[0].date));
             ctxChart2.fillText(formatYear(data[numberRecords-1].date),0,scaleYEvent(data[numberRecords-1].date));
 

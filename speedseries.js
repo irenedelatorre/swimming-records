@@ -8,7 +8,7 @@ d3.speedSeries = function(){
         speedExtent = [],
         dateExtent = [],
         eventNames = [],
-        chartStartingPoint = 35,
+        chartStartingPoint = 0,
         chartEndPoint = chartW - 150;
         chartTopPoint = 10,
         scaleYEvent = d3.scaleTime().domain(dateExtent).range([chartTopPoint,chartH-25]),
@@ -41,7 +41,7 @@ d3.speedSeries = function(){
         var numberRecords = data.length;
 
         data.forEach(function(d){
-            d.xPosChart = startingPoint;
+            d.xPosChart = chartStartingPoint;
             d.yPosChart = scaleYEvent(d.date);
 
         });
@@ -149,7 +149,7 @@ d3.speedSeries = function(){
 
             ctxChart.textAlign = "left";
 
-            ctxChart.font ="bold 9pt Raleway";
+            ctxChart.font ="Bold 9pt Raleway";
 
             nestBySex.forEach(function(d){
                 var femaleRecords;
@@ -382,7 +382,7 @@ d3.speedSeries = function(){
             for (var i = 0; i < data.length; i++) {
                 var swimmer = data[i];
                 var mySpeed = (swimmer.speed*50)/chartEndPoint;
-                var aleatory = noise.simplex2(swimmer.xPos/10, swimmer.yPos)*mySpeed-mySpeed*2;
+                var aleatory = noise.simplex2(swimmer.xPosChart/10, swimmer.yPosChart)*mySpeed-mySpeed*2;
                 var celebration = Math.random() * (mySize*1.1 - mySize/2) + mySize*1.1;
 
                 //var mouse = d3.mouse(document.getElementById("allSwimmers"));

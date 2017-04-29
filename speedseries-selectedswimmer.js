@@ -44,7 +44,7 @@ d3.speedSeriesASwimmer = function(){
         var numberRecords = data.length;
 
         data.forEach(function(d){
-            d.xPosChart = startingPoint;
+            d.xPosChart = chartStartingPoint;
             d.yPosChart = scaleYEvent(d.date);
 
         });

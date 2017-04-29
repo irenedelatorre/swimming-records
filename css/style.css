@@ -12,6 +12,13 @@ html,body,div,svg{
 	margin-bottom: 40px;
  }
 
+.col-img {
+	width: 450px;
+	position: relative;
+	min-height: 1px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
 /*------------Global-------------*/
 html,body{
 	height: 100%;
@@ -113,6 +120,25 @@ a .header {
 	padding-right: 70px;
 }
 
+
+/*@media (min-width: 991px){*/
+	/*.navSpeedEvent .col-md-2 {*/
+		/*width: 50%;*/
+	/*}*/
+	/*.navSpeedEvent .col-md-1 {*/
+		/*width: 25%;*/
+	/*}*/
+/*}*/
+
+/*@media (max-width: 990px){*/
+	/*.navSpeedEvent .col-md-2 {*/
+		/*width: 50%;*/
+	/*}*/
+	/*.navSpeedEvent .col-md-1 {*/
+		/*width: 25%;*/
+	/*}*/
+/*}*/
+
 .visualizations-scrolled{
 	margin-top: 150px;
 }
@@ -205,6 +231,7 @@ a .header {
 	color: #E7F1F2;
 	background-color: #192f38;
 	border: 1px solid #E7F1F2;
+	margin-left: 20px !important;
 }
 
 
@@ -248,7 +275,8 @@ a .header {
 	font-weight: 600;
 	border-radius: 0;
 	border: 1px solid #758288;
-	width: initial;
+	width: 100%;
+	margin-top: 10px;
 }
 .form-control option{
 	font-weight: 600;
@@ -256,6 +284,10 @@ a .header {
 
 .swimmer-list2,.swimmer-list3, #replayViz, #showMen, #showWomen, #showAll, #up, #replay, #swimmerNames, #replayViz2 {
 	margin-top: 35px;
+}
+
+#replayViz,#showMen, #showWomen, #showAll {
+	margin-left: 20px !important;
 }
 
 #up{
@@ -274,7 +306,7 @@ a .header {
 	font-size: 14px;
 	font-weight: 600;
 	color: #758288;
-	line-height: 2.3em;
+	/*line-height: 2.3em;*/
 }
 
 .title{
@@ -355,10 +387,29 @@ span.informationIcon {
 	font-weight: 600;
 }
 
-.margininfo{
-	top: 45px;
-	position: absolute;
+
+
+@media (min-width: 1561px) {
+	.margininfo{
+		top: 45px;
+		position: absolute;
+	}
 }
+
+@media (max-width: 1560px) and (min-width: 991px) {
+	.margininfo{
+		top: 30px;
+		position: absolute;
+	}
+}
+
+@media (max-width: 990px){
+	.margininfo{
+		top: 0px;
+		position: absolute;
+	}
+}
+
 
 .speedInfo img{
 	width: 100%;

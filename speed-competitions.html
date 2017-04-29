@@ -45,7 +45,7 @@
             <h2 class="row">If all records competed against each other in a 50m swimming pool, which one would win?</h2>
             <p class="row">Visualization of the average speeds of all the records broken from 1900 to the beginning of 2017.</p>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-img">
                     <img class="row legendIMG" src="legend-speed3-main.svg"/>
                 </div>
                 <div class="col-md-3">
@@ -61,7 +61,9 @@
                         </select>
                     </div>
                 </div>
-                <a class="btn btn-default btn-highlighted"  id="replayViz2">Replay</a>
+                <div class="col-md-1">
+                    <a class="btn btn-default btn-highlighted"  id="replayViz2">Replay</a>
+                </div>
             </div>
 
             <div id="allSwimmers" class="row">
@@ -81,7 +83,7 @@
             <h2 class="row">Records per stroke and distance</h2>
             <p class="row">Average speeds of records broken from 1900 to the beginning of 2017, by swimming modality</p>
             <div class="navSpeedEvent row">
-                <img class="row legendIMG" src="legend-speed3.svg"/>
+                <img class="legendIMG" src="legend-speed3.svg"/>
                 <div class="col-md-3">
                     <p id="speedCalculation2" class="row speedTitle"><span class="informationIcon"></span><span class="margininfo">Show information about the speed's calculation</span></p>
                     <div id="speedInfo2" class="speedInfoHide row">
@@ -89,12 +91,15 @@
                         <img src="legend-speed-calculation.svg">
                     </div>
                 </div>
-                <div class="control-module drop-down col-md-3">
-                    <div class="select">
-                        <select class="form-control swimmer-list2" id="swimmerNames3">
-                        </select>
+                <div class="col-md-2">
+                    <div class="control-module drop-down ">
+                        <div class="select">
+                            <select class="form-control swimmer-list2" id="swimmerNames3">
+                            </select>
+                        </div>
                     </div>
                 </div>
+                <!--<div class="col-md-1"></div>-->
                 <a class="btn btn-default btn-highlighted"  id="replay">Replay</a>
                 <a class="btn btn-default"  id="up">Up</a>
             </div>

@@ -507,7 +507,7 @@ span.informationIcon {
 	fill: #758288;
 }
 
-.axis .tick line,  {
+.axis .tick line {
 	fill:none;
 	shape-rendering: crispEdges;
 	stroke: #475960;
@@ -661,4 +661,9 @@ li, ul {
 	font-size: 11pt;
 	color: #799ead;
 	 margin-left: 0px !important;
+}
+
+
+#iib-awards-badge-link {
+	margin-left: 0px !important;
 }

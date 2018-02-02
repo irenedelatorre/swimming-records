@@ -388,7 +388,7 @@ span.informationIcon {
 	height: 25px;
 	display: inline-block;
 	margin-right: 5px;
-	background-image: url(../information-icon.svg);
+	background-image: url(../media/information-icon.svg);
 	background-repeat: no-repeat;
 	background-size: contain;
 }

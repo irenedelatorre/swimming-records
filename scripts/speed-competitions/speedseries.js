@@ -2,7 +2,7 @@ d3.speedSeries = function(){
     var w,
         h,
         m = {t:5,r:0,b:5,l:0};
-    chartW = w - m.l - m.r,
+        chartW = w - m.l - m.r,
         chartH = h - m.t - m.b,
         radius = [],
         speedExtent = [],
@@ -178,7 +178,7 @@ d3.speedSeries = function(){
                 ctxChart.beginPath();
                 ctxChart.fillStyle = "none";
                 ctxChart.lineWidth = "1pt";
-                ctxChart.globalCompositeOperation = 'screen';
+                ctxChart.globalCompositeOperation = screenMode;
                 ctxChart.globalAlpha = 0.5;
                 ctxChart.setLineDash([4, 2]);
                 ctxChart.strokeStyle = scaleColor("Female");
@@ -399,7 +399,7 @@ d3.speedSeries = function(){
 
                 //Draw each circle
                 ctxChart.beginPath();
-                ctxChart.globalCompositeOperation = 'screen';
+                ctxChart.globalCompositeOperation = screenMode;
                 ctxChart.globalAlpha = 0.75;
                 ctxChart.fillStyle = scaleColor(swimmer.sex);
 

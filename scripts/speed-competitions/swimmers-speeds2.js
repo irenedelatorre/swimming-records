@@ -36,6 +36,29 @@ window.cancelRequestAnimFrame = ( function() {
         clearTimeout
 } )();
 
+
+var sBrowser, sUsrAg = navigator.userAgent;
+
+if(sUsrAg.indexOf("Chrome") > -1) {
+    sBrowser = "Google Chrome";
+} else if (sUsrAg.indexOf("Safari") > -1) {
+    sBrowser = "Apple Safari";
+} else if (sUsrAg.indexOf("Opera") > -1) {
+    sBrowser = "Opera";
+} else if (sUsrAg.indexOf("Firefox") > -1) {
+    sBrowser = "Mozilla Firefox";
+} else if (sUsrAg.indexOf("MSIE") > -1) {
+    sBrowser = "Microsoft Internet Explorer";
+}
+
+var screenMode = 'screen';
+
+if (sBrowser === "Mozilla Firefox"){
+    screenMode = 'normal';
+}
+
+
+
 var myReq;
 var today = new Date ();
 var seconds = today.getSeconds();
@@ -175,7 +198,8 @@ function draw (err, rows, types, swimmers) {
         var myYPOS;
         var size;
 
-        ctx.globalCompositeOperation = 'screen';
+
+        ctx.globalCompositeOperation = screenMode;
 
         //Loop over the dataset and draw each circle to the canvas
         for (var i = 0; i < data.length; i++) {
@@ -301,7 +325,7 @@ function draw (err, rows, types, swimmers) {
                 ctx.stroke();
                 ctx.closePath();
 
-                ctx.globalCompositeOperation = 'screen';
+                ctx.globalCompositeOperation = screenMode;
                 //Loop over the dataset and draw each circle to the canvas
                 for (var i = 0; i < data.length; i++) {
                     var swimmer = data[i];
@@ -320,7 +344,7 @@ function draw (err, rows, types, swimmers) {
                         ctx.beginPath();
                         ctx.fillStyle = "none";
                         ctx.lineWidth = "1pt";
-                        ctx.globalCompositeOperation = 'screen';
+                        ctx.globalCompositeOperation = screenMode;
                         ctx.globalAlpha = 0.1;
                         ctx.strokeStyle = scaleColor(swimmer.sex);
                         ctx.setLineDash([0, 0]);
@@ -335,7 +359,7 @@ function draw (err, rows, types, swimmers) {
                         ctx.closePath();
 
                         ctx.beginPath();
-                        ctx.globalCompositeOperation = 'screen';
+                        ctx.globalCompositeOperation = screenMode;
                         ctx.globalAlpha = 1;
                         ctx.fillStyle = scaleColor(swimmer.sex);
                         ctx.arc(swimmer.xPos, swimmer.yPos +noise.simplex2(swimmer.xPos/10, swimmer.yPos)*mySpeed-mySpeed*2, mySize, 0,  2 * Math.PI);
@@ -348,7 +372,7 @@ function draw (err, rows, types, swimmers) {
                     }if (swimmerName != swimmer.name){
                         ////Draw each circle
                         ctx.beginPath();
-                        ctx.globalCompositeOperation = 'screen';
+                        ctx.globalCompositeOperation = screenMode;
                         ctx.globalAlpha = 0.1;
                         ctx.fillStyle = scaleColor(swimmer.sex);
                         ctx.arc(swimmer.xPos, swimmer.yPos +noise.simplex2(swimmer.xPos/10, swimmer.yPos)*mySpeed-mySpeed*2, 1, 0,  2 * Math.PI);

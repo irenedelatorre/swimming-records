@@ -185,10 +185,11 @@ d3.speedSeriesASwimmer = function(){
                 var maleRecordsFirst = maleRecords[0];
                 var maleRecordsLast = maleRecords[maleRecords.length-1];
 
-                ctxChart2.beginPath();
+
+                           ctxChart2.beginPath();
                 ctxChart2.fillStyle = "none";
                 ctxChart2.lineWidth = "1pt";
-                ctxChart2.globalCompositeOperation = 'screen';
+                ctxChart2.globalCompositeOperation = screenMode;
                 ctxChart2.globalAlpha = 0.25;
                 ctxChart2.setLineDash([4, 2]);
                 ctxChart2.strokeStyle = scaleColor("Female");

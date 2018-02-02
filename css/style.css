@@ -314,7 +314,7 @@ a .header {
 }
 
 .list-title {
-	font-size: 14px;
+	font-size: 11.5px;
 	font-weight: 600;
 	color: #758288;
 	/*line-height: 2.3em;*/
@@ -509,7 +509,8 @@ span.informationIcon {
 	font-size: 10pt;
 	pointer-events: none;
 	fill: #758288;
-	font-family: "Raleway medium";
+	font-family: "Raleway Medium", "Raleway";
+	font-weight: 400;
 
 }
 

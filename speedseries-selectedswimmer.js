@@ -86,14 +86,17 @@ d3.speedSeriesASwimmer = function(){
 
         //DOTS
         var canvas2 = d3.select(this).insert('canvas')
-            .attr('width',chartW)
-            .attr('height',chartH)
+            // .attr('width',chartW)
+            // .attr('height',chartH)
             .attr("class","row")
             .attr("transform","translate("+m.l+","+ m.t+")")
             //.style("opacity",0)
-            .node(),
+            .node();
 
-        ctxChart2 = canvas2.getContext("2d");
+        canvas2.width = 2 * chartW;
+        canvas2.height = 2 * chartH;
+
+        var ctxChart2 = canvas2.getContext("2d");
 
         var nestBySex = d3.nest()
             .key(function (d) {
@@ -113,6 +116,11 @@ d3.speedSeriesASwimmer = function(){
                 return d.name
             })
             .entries(data);
+
+        ctxChart2.globalCompositeOperation = 'normal';
+        ctxChart2.scale(2,2);
+        ctxChart2.fillStyle = "#192F38";
+        ctxChart2.fillRect(0,0,chartW,chartH);
 
 
         drawOneEvent();

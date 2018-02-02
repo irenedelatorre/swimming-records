@@ -7,10 +7,14 @@ var width = d3.select('#allSwimmers').node().clientWidth - margin.r - margin.l,
 var canvasAllSwimmers = d3.select('#allSwimmers')
     .append('canvas')
     .attr("id","allrecordsViz")
-    .attr('width',width)
-    .attr('height',height)
-    .node(),
-    ctx = canvasAllSwimmers.getContext("2d");
+    // .attr('width',width)
+    // .attr('height',height)
+    .node();
+
+canvasAllSwimmers.width = 2 * width;
+canvasAllSwimmers.height = 2 * height;
+
+var ctx = canvasAllSwimmers.getContext("2d");
 
 var canvasALL = document.getElementById("allrecordsViz");
 
@@ -115,12 +119,19 @@ function draw (err, rows, types, swimmers) {
     //var xPos = 0;
     var mySpeed = "";
 
+    //ctx.clearRect(0, 0, width, height);
+    ctx.globalCompositeOperation = 'normal';
+    ctx.scale(2,2);
+    ctx.fillStyle = "#192F38";
+    ctx.fillRect(0,0,width,height);
+
     drawSwimmers();
 
     function drawSwimmers (){
         //ctx.clearRect(0, 0, width, height);
         ctx.globalCompositeOperation = 'normal';
         ctx.fillStyle = "#192F38";
+        ctx.scale(1,1);
         ctx.fillRect(0,0,width,height);
 
         //Y axis

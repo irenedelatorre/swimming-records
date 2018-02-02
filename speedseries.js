@@ -80,14 +80,18 @@ d3.speedSeries = function(){
 
         //DOTS
         var canvas1 = d3.select(this).insert('canvas')
-            .attr('width',chartW)
-            .attr('height',chartH)
+            // .attr('width',chartW)
+            // .attr('height',chartH)
             .attr("class","row")
             .attr("transform","translate("+m.l+","+ m.t+")")
             //.style("opacity",0)
-            .node(),
+            .node();
+
+
+        canvas1.width = 2 * chartW;
+        canvas1.height = 2 * chartH;
         
-        ctxChart = canvas1.getContext("2d");
+        var ctxChart = canvas1.getContext("2d");
 
         //[0] = male; [1] = female
         var nestBySex = d3.nest()
@@ -104,6 +108,10 @@ d3.speedSeries = function(){
             .entries(data);
 
 
+        ctxChart.globalCompositeOperation = 'normal';
+        ctxChart.scale(2,2);
+        ctxChart.fillStyle = "#192F38";
+        ctxChart.fillRect(0,0,chartW,chartH);
 
         drawOneEvent();
 
@@ -112,7 +120,7 @@ d3.speedSeries = function(){
         function drawOneEvent(){
 
             //ctx.clearRect(0, 0, width, height);
-            ctx.globalCompositeOperation = 'normal';
+            ctxChart.globalCompositeOperation = 'normal';
             ctxChart.fillStyle = "#192F38";
             ctxChart.fillRect(0, 0, chartW, chartH);
 

@@ -49,10 +49,7 @@ d3.eventSeries = function(){
             .attr("y",20)
             .attr("x",0);
 
-        console.log(distanceTitle)
-
         if (distanceTitle[0]=="4 x 100 m freestyle relay" || distanceTitle[0]=="4 x 100 m medley relay" || distanceTitle[0]=="4 x 200 m freestyle relay" || distanceTitle[0]=="4 x 200 m medley relay" ){
-            console.log("hello")
             svgEnter.append('text')
                 .text("Records: "+(numberRecords/4))
                 .attr("class","legend")

@@ -302,8 +302,6 @@ function draw1 (err, rows, types, swimmers) {
             var widthEvent = d3.select(this).node().clientWidth - margin.r - margin.l,
                 heightEvent = d3.select(this).node().clientHeight - margin.t - margin.b;
 
-            console.log(heightEvent)
-
             var eventSeries = d3.eventSeries()
                 .width(widthEvent)
                 .height(widthb/4)
@@ -379,7 +377,6 @@ function draw1 (err, rows, types, swimmers) {
 
 
 function parseData(d){
-    console.log(d);
     return {
         id: d["id"],
         id2: d["id2"],
